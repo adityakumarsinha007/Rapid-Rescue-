@@ -74,8 +74,10 @@ input, select {
   margin-top: 5px;
   border-radius: 10px;
   border: none;
-  background: rgba(255,255,255,0.08);
-  color: white;
+  outline: none;
+
+  background: rgba(255,255,255,0.08) !important;
+  color: white !important;
 }
 
 .row {
@@ -107,35 +109,41 @@ button {
 button:hover {
   transform: scale(1.03);
 }
+
 .country {
   width: 120px;
   font-size: 14px;
 }
+
+/* SELECT */
 select {
   font-size: 14px;
-}
-select {
-  width: 100%;
-  padding: 12px;
-  margin-top: 5px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-
-  background: rgba(255,255,255,0.08);
-  color: white;
-
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-}
-select option {
-  background: #0b1a3a;
-  color: white;
-}
-select {
+
   background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='20' viewBox='0 0 24 24' width='20'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
   background-position-x: 95%;
   background-position-y: 50%;
+}
+
+select option {
+  background: #0b1a3a;
+  color: white;
+}
+
+/* 🔥 FINAL AUTOFILL FIX */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255,255,255,0.08) inset !important;
+  -webkit-text-fill-color: white !important;
+  caret-color: white !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+/* 🔥 BUTTONS SIDE BY SIDE */
+.row button {
+  width: 100%;
 }

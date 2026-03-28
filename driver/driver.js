@@ -145,3 +145,46 @@ async function connectESP32() {
   }
 
 }
+// 🔥 CLEAR DATA
+function clearDetails() {
+
+  localStorage.removeItem("driverData");
+
+  document.getElementById("name").value = "";
+  document.getElementById("vehicleModel").value = "";
+  document.getElementById("vehicleNo").value = "";
+  document.getElementById("vehicleType").value = "";
+  document.getElementById("emergency").value = "";
+
+  alert("🗑 Data Cleared!");
+}
+function saveDetails() {
+
+  const name = document.getElementById("name").value;
+  const vehicleModel = document.getElementById("vehicleModel").value;
+  const vehicleNo = document.getElementById("vehicleNo").value;
+  const vehicleType = document.getElementById("vehicleType").value;
+  const emergencyCode = document.getElementById("emCode").value;
+  const emergencyNum = document.getElementById("emergency").value;
+
+  // 🔥 Check empty fields (important)
+  if (!name || !vehicleModel || !vehicleNo || !vehicleType || !emergencyNum) {
+    alert("⚠️ Please fill all details");
+    return;
+  }
+
+  const data = {
+    name,
+    vehicleModel,
+    vehicleNo,
+    vehicleType,
+    emergency: emergencyCode + emergencyNum
+  };
+
+  // 🔥 SAVE
+  localStorage.setItem("driverData", JSON.stringify(data));
+
+  console.log("Saved Data:", data);
+
+  alert("✅ Details Saved Successfully!");
+}

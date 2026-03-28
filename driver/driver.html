@@ -72,13 +72,15 @@
       <option value="Van">🚐 Van</option>
       <option value="Pickup">🛻 Pickup</option>
     </select>
+    <div class="row">
+  <button type="button" class="save" onclick="saveDetails()">💾 Save</button>
+  <button type="button" class="alert" onclick="clearDetails()">🗑 Clear</button>
+</div>
 
-    <!-- 🔥 ACTION BUTTONS -->
-    <button class="save" onclick="startTrip()">🚀 Start Trip</button>
-
-    <!-- 🔥 ESP32 CONNECT -->
-    <button class="connect" onclick="connectESP32()">🔵 Connect Vehicle</button>
-
+<div class="row">
+  <button type="button" class="save" onclick="startTrip()">🚀 Start Trip</button>
+  <button type="button" class="connect" onclick="connectESP32()">🔵 Connect Vehicle</button>
+</div>
     <!-- 🔥 INFO TEXT -->
     <p style="color:#ff4b5c; font-size:12px;">
       ⚠️ Accident detection is automatic via vehicle sensor
