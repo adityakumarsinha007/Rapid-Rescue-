@@ -20,6 +20,8 @@
 </div>
 
 <div class="container">
+
+  <!-- LEFT CARD (NO UI CHANGE) -->
   <div class="card">
 
     <label>DRIVER NAME</label>
@@ -42,42 +44,66 @@
     </div>
 
     <label>VEHICLE TYPE</label>
-    <select id="vehicleType">
+    <select id="vehicleType" onchange="updateVehicle()">
       <option value="">Select Vehicle Type</option>
-      <option>🚗 Car</option>
-      <option>🏍️ Bike</option>
-      <option>🛵 Scooter</option>
-      <option>🚚 Truck</option>
-      <option>🚌 Bus</option>
-      <option>🚖 Taxi</option>
-      <option>🛺 Auto Rickshaw</option>
-      <option>🏎️ Sports Car</option>
-      <option>🚑 Ambulance</option>
-      <option>🚐 Van</option>
-      <option>🛻 Pickup</option>
+      <option value="car">🚗 Car</option>
+      <option value="bike">🏍️ Bike</option>
+      <option value="scooter">🛵 Scooter</option>
+      <option value="truck">🚚 Truck</option>
+      <option value="bus">🚌 Bus</option>
+      <option value="taxi">🚖 Taxi</option>
+      <option value="auto">🛺 Auto Rickshaw</option>
+      <option value="sports">🏎️ Sports Car</option>
+      <option value="ambulance">🚑 Ambulance</option>
+      <option value="van">🚐 Van</option>
+      <option value="pickup">🛻 Pickup</option>
     </select>
 
-    <!-- 🔥 NEW BUTTON ROW -->
     <div class="row">
       <button class="save" onclick="saveDetails()">💾 Save</button>
       <button class="alert" onclick="clearDetails()">🗑 Clear</button>
     </div>
-<div class="row">
-    <!-- EXISTING BUTTONS -->
-    <button class="save" onclick="startTrip()">🚀 Start Trip</button>
-    <button class="connect" onclick="connectESP32()">🔵 Connect Vehicle</button>
-</div>
+
+    <div class="row">
+      <button class="save" onclick="startTrip()">🚀 Start Trip</button>
+      <button class="connect" onclick="connectESP32()">🔵 Connect Vehicle</button>
+    </div>
+
     <p style="color:#ff4b5c; font-size:12px;">
       ⚠️ Accident detection is automatic via vehicle sensor
     </p>
 
-    <p id="status">Status: Waiting...</p>
+  </div>
 
-    <p><b>Latitude:</b> <span id="lat">-</span></p>
-    <p><b>Longitude:</b> <span id="lng">-</span></p>
-    <p><b>Speed:</b> <span id="spd">-</span></p>
+  <!-- RIGHT VEHICLE CARD -->
+  <div class="card vehicle-card">
+
+    <!-- VEHICLE AREA -->
+    <div class="vehicle-container">
+
+      <!-- 🚗 Vehicle (hidden initially) -->
+      <div id="vehicle" style="display:none;"></div>
+
+      <!-- 💬 Comic Popup -->
+      <div id="comicPopup" class="comic-popup">
+        Demo Vehicle Ready 🚀
+      </div>
+
+    </div>
+
+    <!-- 📡 STATUS (MOVED HERE) -->
+    <div class="status-box">
+      <p id="status">Status: Waiting...</p>
+      <p><b>Latitude:</b> <span id="lat">-</span></p>
+      <p><b>Longitude:</b> <span id="lng">-</span></p>
+      <p><b>Speed:</b> <span id="spd">-</span></p>
+    </div>
+
+    <!-- 🛣️ ROAD -->
+    <div class="road"></div>
 
   </div>
+
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>

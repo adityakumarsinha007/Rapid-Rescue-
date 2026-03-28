@@ -1,58 +1,79 @@
+// ===============================
+// 🚗 VEHICLE MAP
+// ===============================
+const vehicleMap = {
+  car: "🚗",
+  bike: "🏍️",
+  scooter: "🛵",
+  truck: "🚚",
+  bus: "🚌",
+  taxi: "🚖",
+  auto: "🛺",
+  sports: "🏎️",
+  ambulance: "🚑",
+  van: "🚐",
+  pickup: "🛻"
+};
+
+// ===============================
+// 📍 GLOBAL VARIABLES
+// ===============================
 let currentLat = 0;
 let currentLng = 0;
-
-let prevLat = 0;
-let prevLng = 0;
-let prevTime = 0;
-
 let speed = 0;
+let tripStarted = false;
 
-// 🔥 Distance calculation
-function getDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371000;
-  const toRad = (val) => (val * Math.PI) / 180;
+// ===============================
+// 🚗 VEHICLE UPDATE
+// ===============================
+function updateVehicle() {
+  const type = document.getElementById("vehicleType").value;
+  const vehicle = document.getElementById("vehicle");
 
-  const dLat = toRad(lat2 - lat1);
-  const dLon = toRad(lon2 - lon1);
+  if (!type) {
+    vehicle.style.display = "none";
+    return;
+  }
 
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRad(lat1)) *
-      Math.cos(toRad(lat2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
-
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-  return R * c;
+  vehicle.style.display = "block";
+  vehicle.innerText = vehicleMap[type];
 }
 
-// 🔥 Start Tracking
+// ===============================
+// 💬 COMIC POPUP
+// ===============================
+function showPopup(message = "Demo Vehicle Ready 🚀") {
+  const popup = document.getElementById("comicPopup");
+  popup.innerText = message;
+
+  popup.classList.add("show");
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+  }, 2000);
+}
+
+// ===============================
+// 🚀 START TRIP
+// ===============================
 function startTrip() {
+
+  tripStarted = true;
+
   document.getElementById("status").innerText = "Tracking started...";
+  showPopup("Demo Vehicle Ready 🚀");
 
   navigator.geolocation.watchPosition(
     (pos) => {
       currentLat = pos.coords.latitude;
       currentLng = pos.coords.longitude;
 
-      const currentTime = Date.now();
-
-      if (prevLat && prevLng && prevTime) {
-        const distance = getDistance(prevLat, prevLng, currentLat, currentLng);
-        const timeDiff = (currentTime - prevTime) / 1000;
-
-        speed = (distance / timeDiff) * 3.6;
-      }
-
-      prevLat = currentLat;
-      prevLng = currentLng;
-      prevTime = currentTime;
-
-      // UI update
       document.getElementById("lat").innerText = currentLat.toFixed(6);
       document.getElementById("lng").innerText = currentLng.toFixed(6);
-      document.getElementById("spd").innerText = speed.toFixed(2) + " km/h";
+
+      // dummy speed (can upgrade later)
+      speed = 20;
+      document.getElementById("spd").innerText = speed + " km/h";
 
       document.getElementById("status").innerText = "Live Tracking Active 🚗";
     },
@@ -64,7 +85,93 @@ function startTrip() {
   );
 }
 
-// 🔥 Send Accident
+// ===============================
+// 🔵 CONNECT VEHICLE (ESP32)
+// ===============================
+async function connectESP32() {
+
+  const vehicle = document.getElementById("vehicle");
+
+  if (!tripStarted) {
+    alert("Start Trip first 🚀");
+    return;
+  }
+
+  if (vehicle.style.display === "none") {
+    alert("Select Vehicle first 🚗");
+    return;
+  }
+
+  try {
+    const device = await navigator.bluetooth.requestDevice({
+      acceptAllDevices: true,
+      optionalServices: ["12345678-1234-1234-1234-1234567890ab"]
+    });
+
+    const server = await device.gatt.connect();
+
+    const service = await server.getPrimaryService(
+      "12345678-1234-1234-1234-1234567890ab"
+    );
+
+    const characteristic = await service.getCharacteristic(
+      "abcd1234-5678-1234-5678-abcdef123456"
+    );
+
+    await characteristic.startNotifications();
+
+    showPopup("Vehicle Connected 🔗");
+    document.getElementById("status").innerText = "Vehicle Connected 🚗";
+
+    // 🚗 START MOVEMENT
+    vehicle.classList.add("move");
+
+    // 🔥 LISTEN TO ESP32
+    characteristic.addEventListener("characteristicvaluechanged", (event) => {
+
+      const value = new TextDecoder().decode(event.target.value);
+
+      console.log("ESP32:", value);
+
+      if (value === "ACCIDENT") {
+        handleAccident();
+      }
+
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    // fallback demo mode
+    showPopup("Demo Mode Active ⚡");
+    vehicle.classList.add("move");
+
+    setTimeout(() => {
+      handleAccident();
+    }, 8000);
+  }
+}
+
+// ===============================
+// 💥 HANDLE ACCIDENT
+// ===============================
+function handleAccident() {
+
+  const vehicle = document.getElementById("vehicle");
+
+  vehicle.classList.remove("move");
+  vehicle.classList.add("crash");
+
+  document.getElementById("status").innerText = "Accident Detected 💥";
+
+  showPopup("Accident Detected 💥");
+
+  sendAccident();
+}
+
+// ===============================
+// 🚨 SEND ACCIDENT TO FIREBASE
+// ===============================
 function sendAccident() {
 
   if (currentLat === 0 || currentLng === 0) {
@@ -101,51 +208,9 @@ function sendAccident() {
   });
 }
 
-// 🔵 ESP32 CONNECT (NEW)
-async function connectESP32() {
-
-  try {
-
-    const device = await navigator.bluetooth.requestDevice({
-      acceptAllDevices: true,
-      optionalServices: ["12345678-1234-1234-1234-1234567890ab"]
-    });
-
-    const server = await device.gatt.connect();
-
-    const service = await server.getPrimaryService(
-      "12345678-1234-1234-1234-1234567890ab"
-    );
-
-    const characteristic = await service.getCharacteristic(
-      "abcd1234-5678-1234-5678-abcdef123456"
-    );
-
-    await characteristic.startNotifications();
-
-    alert("✅ Vehicle Connected");
-
-    // 🔥 Listen to ESP32
-    characteristic.addEventListener("characteristicvaluechanged", (event) => {
-
-      const value = new TextDecoder().decode(event.target.value);
-
-      console.log("ESP32:", value);
-
-      if (value === "ACCIDENT") {
-        alert("🚨 Accident Auto Detected!");
-        sendAccident();   // 🔥 AUTO SEND
-      }
-
-    });
-
-  } catch (error) {
-    console.log(error);
-    alert("❌ Connection Failed");
-  }
-
-}
-// 🔥 SAVE DATA
+// ===============================
+// 💾 SAVE DATA
+// ===============================
 function saveDetails() {
 
   const data = {
@@ -163,7 +228,9 @@ function saveDetails() {
   alert("✅ Details Saved!");
 }
 
-// 🔥 CLEAR DATA
+// ===============================
+// 🗑 CLEAR DATA
+// ===============================
 function clearDetails() {
 
   localStorage.removeItem("driverData");
@@ -173,6 +240,8 @@ function clearDetails() {
   document.getElementById("vehicleNo").value = "";
   document.getElementById("vehicleType").value = "";
   document.getElementById("emergency").value = "";
+
+  document.getElementById("vehicle").style.display = "none";
 
   alert("🗑 Data Cleared!");
 }

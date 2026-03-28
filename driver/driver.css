@@ -1,3 +1,4 @@
+/* ===== BODY ===== */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -5,7 +6,7 @@ body {
   color: white;
 }
 
-/* NAVBAR */
+/* ===== NAVBAR ===== */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -34,13 +35,16 @@ body {
   color: white;
 }
 
-/* FORM */
+/* ===== CONTAINER ===== */
 .container {
   display: flex;
   justify-content: center;
+  gap: 30px;
   margin-top: 40px;
+  flex-wrap: wrap;
 }
 
+/* ===== CARD ===== */
 .card {
   width: 400px;
   padding: 30px;
@@ -50,17 +54,44 @@ body {
   border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* UPLOAD */
-.upload {
-  border: 1px dashed rgba(255,255,255,0.2);
-  padding: 20px;
-  text-align: center;
-  margin-bottom: 20px;
-  border-radius: 12px;
-  color: #888;
+/* ===== INPUT (NO WHITE FIX) ===== */
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+
+  background: rgba(255,255,255,0.08) !important; /* 🔥 force glass */
+  color: white !important;
 }
 
-/* INPUT */
+/* FOCUS (NO WHITE) */
+input:focus,
+select:focus {
+  background: rgba(255,255,255,0.08) !important;
+  color: white !important;
+}
+
+/* PLACEHOLDER */
+input::placeholder {
+  color: #bbb;
+}
+
+/* 🔥 AUTOFILL HARD FIX */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: white !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255,255,255,0.08) inset !important;
+  box-shadow: 0 0 0px 1000px rgba(255,255,255,0.08) inset !important;
+  transition: background-color 9999s ease-in-out 0s;
+  caret-color: white !important;
+}
+
+/* ===== LABEL ===== */
 label {
   font-size: 12px;
   color: #aaa;
@@ -68,22 +99,13 @@ label {
   display: block;
 }
 
-input, select {
-  width: 100%;
-  padding: 12px;
-  margin-top: 5px;
-  border-radius: 10px;
-  border: none;
-  background: rgba(255,255,255,0.08);
-  color: white;
-}
-
+/* ===== ROW ===== */
 .row {
   display: flex;
   gap: 10px;
 }
 
-/* BUTTONS */
+/* ===== BUTTON ===== */
 button {
   width: 100%;
   padding: 14px;
@@ -104,82 +126,137 @@ button {
   color: white;
 }
 
+.connect {
+  background: linear-gradient(90deg, #43e97b, #38f9d7);
+  color: black;
+}
+
 button:hover {
   transform: scale(1.03);
 }
+
 .country {
   width: 120px;
-  font-size: 14px;
 }
-select {
-  font-size: 14px;
-}
-select {
-  width: 100%;
-  padding: 12px;
-  margin-top: 5px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
 
-  background: rgba(255,255,255,0.08);
-  color: white;
-
+/* ===== SELECT STYLE ===== */
+select {
   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-select option {
-  background: #0b1a3a;
-  color: white;
-}
-select {
   background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='20' viewBox='0 0 24 24' width='20'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
   background-position-x: 95%;
   background-position-y: 50%;
 }
-.row button {
-  width: 100%;
-}
-/* 🔥 INPUT TEXT COLOR FIX */
-input,
-select {
-  color: white !important;
-}
 
-/* 🔥 PLACEHOLDER COLOR */
-input::placeholder {
-  color: #ccc;
-}
-
-/* 🔥 SELECT TEXT */
 select option {
-  color: white;
   background: #0b1a3a;
-}
-/* 🔥 FORCE WHITE TEXT (ALL INPUT STATES) */
-input,
-input:focus,
-input:active,
-select,
-select:focus {
-  color: white !important;
-  background: rgba(255,255,255,0.08) !important;
+  color: white;
 }
 
-/* 🔥 PLACEHOLDER */
-input::placeholder {
-  color: #bbb !important;
+/* ========================= */
+/* 🚗 VEHICLE SECTION */
+/* ========================= */
+
+.vehicle-card {
+  position: relative;
+  overflow: hidden;
 }
 
-/* 🔥 AUTOFILL FIX (MOST IMPORTANT) */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-text-fill-color: white !important;
-  -webkit-box-shadow: 0 0 0px 1000px rgba(255,255,255,0.08) inset !important;
-  transition: background-color 9999s ease-in-out 0s;
-  caret-color: white !important;
+/* 🚗 VEHICLE */
+#vehicle {
+  position: absolute;
+  bottom: 28px;
+  left: 20px;
+  font-size: 100px;
+
+  transform: perspective(600px) rotateX(12deg);
+  z-index: 3;
+}
+
+/* SHADOW */
+#vehicle::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 25px;
+  width: 90px;
+  height: 12px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  filter: blur(6px);
+}
+
+/* ROAD */
+.road {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background: #111;
+  z-index: 1;
+}
+
+/* LINE */
+.road::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 4px;
+  background: repeating-linear-gradient(
+    to right,
+    white 0px,
+    white 40px,
+    transparent 40px,
+    transparent 80px
+  );
+  transform: translateY(-50%);
+}
+
+/* MOVE */
+.move {
+  animation: drive 4s linear infinite;
+}
+
+@keyframes drive {
+  0% {
+    transform: translateX(500px) perspective(600px) rotateX(12deg);
+  }
+  100% {
+    transform: translateX(-120px) perspective(600px) rotateX(12deg);
+  }
+}
+
+/* CRASH */
+.crash {
+  animation: crashFlip 1s ease-out forwards;
+}
+
+@keyframes crashFlip {
+  0% { transform: translateX(250px) rotate(0); }
+  40% { transform: translateX(300px) rotate(80deg) translateY(-20px); }
+  100% { transform: translateX(320px) rotate(180deg); }
+}
+
+/* POPUP */
+.comic-popup {
+  position: absolute;
+  bottom: 170px;
+  left: 20px;
+  background: white;
+  color: black;
+  padding: 8px 14px;
+  border-radius: 20px;
+  opacity: 0;
+  transition: 0.3s;
+  z-index: 5;
+}
+
+.comic-popup.show {
+  opacity: 1;
+}
+
+/* STATUS */
+.status-box {
+  margin-top: 200px;
 }
