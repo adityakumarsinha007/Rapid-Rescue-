@@ -145,6 +145,24 @@ async function connectESP32() {
   }
 
 }
+// 🔥 SAVE DATA
+function saveDetails() {
+
+  const data = {
+    name: document.getElementById("name").value,
+    vehicleModel: document.getElementById("vehicleModel").value,
+    vehicleNo: document.getElementById("vehicleNo").value,
+    vehicleType: document.getElementById("vehicleType").value,
+    emergency:
+      document.getElementById("emCode").value +
+      document.getElementById("emergency").value
+  };
+
+  localStorage.setItem("driverData", JSON.stringify(data));
+
+  alert("✅ Details Saved!");
+}
+
 // 🔥 CLEAR DATA
 function clearDetails() {
 
@@ -157,34 +175,4 @@ function clearDetails() {
   document.getElementById("emergency").value = "";
 
   alert("🗑 Data Cleared!");
-}
-function saveDetails() {
-
-  const name = document.getElementById("name").value;
-  const vehicleModel = document.getElementById("vehicleModel").value;
-  const vehicleNo = document.getElementById("vehicleNo").value;
-  const vehicleType = document.getElementById("vehicleType").value;
-  const emergencyCode = document.getElementById("emCode").value;
-  const emergencyNum = document.getElementById("emergency").value;
-
-  // 🔥 Check empty fields (important)
-  if (!name || !vehicleModel || !vehicleNo || !vehicleType || !emergencyNum) {
-    alert("⚠️ Please fill all details");
-    return;
-  }
-
-  const data = {
-    name,
-    vehicleModel,
-    vehicleNo,
-    vehicleType,
-    emergency: emergencyCode + emergencyNum
-  };
-
-  // 🔥 SAVE
-  localStorage.setItem("driverData", JSON.stringify(data));
-
-  console.log("Saved Data:", data);
-
-  alert("✅ Details Saved Successfully!");
 }
