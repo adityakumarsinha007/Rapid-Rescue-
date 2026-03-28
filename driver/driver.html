@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Driver Mode</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="driver.css">
+</head>
+
+<body>
+
+<!-- 🔥 NAVBAR -->
+<div class="navbar">
+  <div class="logo">RAPID<span>RESCUE</span></div>
+
+  <div class="nav-links">
+    <a href="../index.html">Home</a>
+    <a class="active">Driver Mode</a>
+    <a href="../rescue/rescue.html">Rescue Dashboard</a>
+  </div>
+</div>
+
+<!-- 🔥 FORM -->
+<div class="container">
+
+  <div class="card">
+
+    <label>DRIVER NAME</label>
+    <input id="name" placeholder="Enter your full name">
+
+    <label>VEHICLE MODEL</label>
+    <input id="vehicleModel" placeholder="e.g. Toyota Camry">
+
+    <label>VEHICLE NUMBER</label>
+    <input id="vehicleNo" placeholder="e.g. KA-01-AB-1234">
+
+    <label>EMERGENCY CONTACT NUMBER</label>
+    <div class="row">
+      <select id="emCode" class="country">
+        <option value="+91">🇮🇳 +91</option>
+        <option value="+1">🇺🇸 +1</option>
+        <option value="+44">🇬🇧 +44</option>
+        <option value="+61">🇦🇺 +61</option>
+        <option value="+81">🇯🇵 +81</option>
+        <option value="+49">🇩🇪 +49</option>
+        <option value="+33">🇫🇷 +33</option>
+        <option value="+971">🇦🇪 +971</option>
+        <option value="+86">🇨🇳 +86</option>
+        <option value="+7">🇷🇺 +7</option>
+        <option value="+39">🇮🇹 +39</option>
+        <option value="+34">🇪🇸 +34</option>
+        <option value="+82">🇰🇷 +82</option>
+        <option value="+55">🇧🇷 +55</option>
+        <option value="+27">🇿🇦 +27</option>
+      </select>
+
+      <input id="emergency" placeholder="Phone number">
+    </div>
+
+    <label>VEHICLE TYPE</label>
+    <select id="vehicleType">
+      <option value="">Select Vehicle Type</option>
+      <option value="Car">🚗 Car</option>
+      <option value="Bike">🏍️ Bike</option>
+      <option value="Scooter">🛵 Scooter</option>
+      <option value="Truck">🚚 Truck</option>
+      <option value="Bus">🚌 Bus</option>
+      <option value="Taxi">🚖 Taxi</option>
+      <option value="Auto Rickshaw">🛺 Auto Rickshaw</option>
+      <option value="Sports Car">🏎️ Sports Car</option>
+      <option value="Ambulance">🚑 Ambulance</option>
+      <option value="Van">🚐 Van</option>
+      <option value="Pickup">🛻 Pickup</option>
+    </select>
+
+    <!-- 🔥 ACTION BUTTONS -->
+    <button class="save" onclick="startTrip()">🚀 Start Trip</button>
+
+    <!-- 🔥 ESP32 CONNECT -->
+    <button class="connect" onclick="connectESP32()">🔵 Connect Vehicle</button>
+
+    <!-- 🔥 INFO TEXT -->
+    <p style="color:#ff4b5c; font-size:12px;">
+      ⚠️ Accident detection is automatic via vehicle sensor
+    </p>
+
+    <!-- 🔥 STATUS -->
+    <p id="status">Status: Waiting...</p>
+
+    <!-- 🔥 LIVE DATA -->
+    <p><b>Latitude:</b> <span id="lat">-</span></p>
+    <p><b>Longitude:</b> <span id="lng">-</span></p>
+    <p><b>Speed:</b> <span id="spd">-</span></p>
+
+  </div>
+
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script src="../firebase/firebase-config.js"></script>
+<script src="driver.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rescue Command</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="rescue.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+</head>
+
+<body>
+
+<!-- 🔥 HEADER -->
+<div class="header">
+  <h2>🚑 Rescue Command Center</h2>
+  <span class="status">🟢 LIVE SYSTEM ACTIVE</span>
+</div>
+
+<div class="main">
+
+  <!-- 🔥 SIDEBAR -->
+  <div class="sidebar">
+
+    <h3>🚨 EMERGENCY FEED</h3>
+
+    <div class="feed-card">
+
+      <!-- 🔥 TOP -->
+      <div class="top">
+        <span class="critical">CRITICAL</span>
+        <span class="live">REAL-TIME</span>
+      </div>
+
+      <!-- 🔥 VEHICLE -->
+      <div class="section">
+        <h2 id="dVehicleNo">-</h2>
+        <p class="vehicle" id="dVehicleType">-</p>
+      </div>
+
+      <!-- 🔥 DRIVER -->
+      <div class="section">
+        <p class="label">Driver</p>
+        <p class="driver" id="dName">-</p>
+      </div>
+
+      <!-- 🔥 CONTACT -->
+      <div class="section">
+        <p class="label">Contact</p>
+        <p class="phone">📞 <span id="dPhone">-</span></p>
+        <p class="phone">🚨 <span id="dEmergency">-</span></p>
+      </div>
+
+      <!-- 🔥 VEHICLE MODEL -->
+      <div class="section">
+        <p class="label">Vehicle Model</p>
+        <p id="dVehicleModel">-</p>
+      </div>
+
+      <!-- 🔥 LOCATION -->
+      <div class="section">
+        <p class="label">Location</p>
+        <p class="gps">📍 <span id="dLat">-</span>, <span id="dLng">-</span></p>
+      </div>
+
+      <!-- 🔥 SPEED -->
+      <div class="section">
+        <p class="label">Speed</p>
+        <p id="dSpeed">-</p>
+      </div>
+
+      
+
+    </div>
+
+  </div>
+
+  <!-- 🔥 MAP -->
+  <div id="map"></div>
+
+</div>
+
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script src="../firebase/firebase-config.js"></script>
+<script src="rescue.js"></script>
+
+</body>
+</html>

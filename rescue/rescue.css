@@ -1,0 +1,136 @@
+/* 🔥 GLOBAL */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #020617;
+  color: white;
+}
+
+/* 🔥 HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 25px;
+  background: #0b1a3a;
+}
+
+/* 🔥 LAYOUT */
+.main {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+/* 🔥 SIDEBAR */
+.sidebar {
+  width: 270px;
+  padding: 15px;
+  background: #030d1f;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar h3 {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 8px;
+}
+
+/* 🔥 CARD (COMPACT BUT CLEAN) */
+.feed-card {
+  background: linear-gradient(145deg, #0b1a3a, #020617);
+  padding: 14px;
+  border-radius: 16px;
+
+  width: 230px;
+  min-height: 380px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;   /* 👈 balanced spacing */
+
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* 🔥 TOP */
+.top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.critical {
+  background: #ff1744;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+}
+
+.live {
+  font-size: 10px;
+  color: #aaa;
+}
+
+/* 🔥 TEXT */
+.section {
+  margin: 4px 0;
+}
+
+.label {
+  font-size: 10px;
+  color: #888;
+}
+
+.vehicle {
+  color: #38bdf8;
+  font-size: 13px;
+}
+
+.driver {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.phone {
+  color: #ff4b5c;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.gps {
+  font-size: 11px;
+  color: #aaa;
+}
+
+/* 🔥 RESET TEXT SPACING */
+p, h2 {
+  margin: 0;
+  line-height: 1.4;   /* 👈 readable */
+}
+
+/* 🔥 BUTTON */
+.resolve {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: none;
+  background: #0ea5e9;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.resolve:hover {
+  background: #0284c7;
+}
+
+/* 🔥 MAP */
+#map {
+  flex: 1;
+  height: 100%;
+}
