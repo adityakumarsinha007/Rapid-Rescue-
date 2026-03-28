@@ -3,7 +3,6 @@
 <head>
   <title>Rapid Rescue</title>
 
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
   <style>
@@ -20,7 +19,6 @@
       color: white;
     }
 
-    /* 🔥 NAVBAR */
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -52,10 +50,20 @@
       color: white;
     }
 
-    /* 🔥 HERO */
     .hero {
       text-align: center;
       margin-top: 80px;
+    }
+
+    .tag, .subtitle {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: 0.6s ease;
+    }
+
+    .show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .tag {
@@ -86,7 +94,6 @@
       font-size: 16px;
     }
 
-    /* 🔥 CARDS */
     .cards {
       display: flex;
       justify-content: center;
@@ -102,6 +109,8 @@
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.1);
       transition: 0.3s;
+      opacity: 0;
+      will-change: transform;
     }
 
     .card:hover {
@@ -142,12 +151,31 @@
       color: #ff2d55;
     }
 
+    /* 🔥 DROP + BOUNCE */
+    @keyframes dropBounce {
+      0% { transform: translateY(-300px); opacity: 0; }
+      60% { transform: translateY(30px); opacity: 1; }
+      80% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* 🔥 SHADOW IMPACT */
+    @keyframes shadowImpact {
+      0% { box-shadow: 0 0 0 rgba(0,0,0,0); }
+      50% { box-shadow: 0 25px 40px rgba(0,0,0,0.6); }
+      100% { box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+    }
+
+    .show-drop {
+      animation: dropBounce 0.9s ease forwards, shadowImpact 0.9s ease forwards;
+      opacity: 1 !important;
+    }
+
   </style>
 </head>
 
 <body>
 
-<!-- 🔥 NAVBAR -->
 <div class="navbar">
   <div class="logo">RAPID<span>RESCUE</span></div>
 
@@ -158,24 +186,23 @@
   </div>
 </div>
 
-<!-- 🔥 HERO -->
 <div class="hero">
 
-  <div class="tag">
+  <div class="tag" id="tag">
     RAPID RESCUE (AN IOT BASED AUTONOMOUS ACCIDENT DETECTION & ALERT DETECTION)
   </div>
 
   <div class="title">
-    RAPID <span class="gradient">RESCUE</span>
+    <span id="rapidText"></span>
+    <span class="gradient" id="rescueText"> RESCUE</span>
   </div>
 
-  <div class="subtitle">
+  <div class="subtitle" id="subtitle">
     An IoT Based Autonomous Accident Detection & Alert Detection
   </div>
 
 </div>
 
-<!-- 🔥 CARDS -->
 <div class="cards">
 
   <div class="card blue">
@@ -195,6 +222,64 @@
   </div>
 
 </div>
+
+<script>
+
+// RAPID animation
+const rapid = "RAPID";
+const rapidEl = document.getElementById("rapidText");
+
+rapid.split("").forEach((char, i) => {
+  const span = document.createElement("span");
+  span.innerText = char;
+  span.style.opacity = "0";
+  span.style.display = "inline-block";
+  span.style.transition = "0.2s ease";
+
+  rapidEl.appendChild(span);
+
+  setTimeout(() => {
+    span.style.opacity = "1";
+  }, i * 80);
+});
+
+const rapidTime = rapid.length * 80;
+
+// RESCUE animation
+const rescue = document.getElementById("rescueText");
+rescue.style.opacity = "0";
+
+setTimeout(() => {
+  rescue.style.opacity = "1";
+}, rapidTime + 200);
+
+// TAG + SUBTITLE
+setTimeout(() => {
+  document.getElementById("tag").classList.add("show");
+  document.getElementById("subtitle").classList.add("show");
+}, rapidTime + 700);
+
+// CARDS DROP + SHADOW IMPACT
+setTimeout(() => {
+  const cards = document.querySelectorAll(".card");
+
+  cards[0].classList.add("show-drop");
+
+  setTimeout(() => {
+    cards[1].classList.add("show-drop");
+  }, 200);
+
+  // LOCK FINAL STATE
+  setTimeout(() => {
+    cards.forEach(card => {
+      card.style.opacity = "1";
+      card.style.transform = "translateY(0)";
+    });
+  }, 1200);
+
+}, rapidTime + 1200);
+
+</script>
 
 </body>
 </html>
