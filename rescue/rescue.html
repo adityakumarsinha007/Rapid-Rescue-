@@ -37,7 +37,25 @@
 
     <h3>🚨 EMERGENCY FEED</h3>
 
-    <div class="feed-card">
+    <!-- ✅ NO ACCIDENT MESSAGE -->
+    <div id="noAccidentBox" class="feed-card">
+
+      <div class="top">
+        <span class="critical" style="background:#16a34a;">SAFE</span>
+        <span class="live">MONITORING</span>
+      </div>
+
+      <div style="margin-top:30px; text-align:center;">
+        <h2 style="font-size:20px;">✅ No Accident Spotted</h2>
+        <p style="margin-top:12px; color:#aaa;">
+          System Monitoring Live...
+        </p>
+      </div>
+
+    </div>
+
+    <!-- 🚨 ACCIDENT CARD -->
+    <div id="accidentCard" class="feed-card" style="display:none;">
 
       <div class="top">
         <span class="critical">CRITICAL</span>
@@ -85,6 +103,11 @@
         <p id="dEquipment">-</p>
       </div>
 
+      <!-- ✔ SOLVE BUTTON -->
+      <button class="solve-btn" onclick="solveIssue()">
+        ✔ Solve Issue
+      </button>
+
     </div>
 
   </div>
@@ -106,8 +129,8 @@
       </div>
 
       <div class="analytic-card">
-        <p class="analytic-label">AVG RESPONSE</p>
-        <h2 id="aAvg">4 min</h2>
+        <p class="analytic-label">SOLVED CASES</p>
+        <h2 id="aSolved">0</h2>
       </div>
 
     </div>
@@ -115,7 +138,6 @@
     <!-- 🗺️ MAP WRAPPER -->
     <div class="map-wrapper">
 
-      <!-- NEW MAP TYPE SELECTOR -->
       <select id="mapType" class="map-type" onchange="changeMapType()">
         <option value="street">🗺️ Street</option>
         <option value="satellite">🛰️ Satellite</option>
@@ -123,7 +145,6 @@
         <option value="dark">🌙 Dark</option>
       </select>
 
-      <!-- MAP -->
       <div id="map"></div>
 
     </div>

@@ -120,6 +120,23 @@ p, h2 {
   margin: 0;
 }
 
+/* SOLVE BUTTON */
+.solve-btn {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  color: white;
+}
+
+.solve-btn:hover {
+  transform: scale(1.03);
+}
+
 /* RIGHT PANEL */
 .right-panel {
   flex: 1;
@@ -167,7 +184,7 @@ p, h2 {
   height: 100%;
 }
 
-/* MAP TYPE SELECTOR */
+/* MAP SELECTOR */
 .map-type {
   position: absolute;
   top: 14px;
