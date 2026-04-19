@@ -6,7 +6,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
   <style>
-
     * {
       margin: 0;
       padding: 0;
@@ -151,7 +150,6 @@
       color: #ff2d55;
     }
 
-    /* 🔥 DROP + BOUNCE */
     @keyframes dropBounce {
       0% { transform: translateY(-300px); opacity: 0; }
       60% { transform: translateY(30px); opacity: 1; }
@@ -159,7 +157,6 @@
       100% { transform: translateY(0); }
     }
 
-    /* 🔥 SHADOW IMPACT */
     @keyframes shadowImpact {
       0% { box-shadow: 0 0 0 rgba(0,0,0,0); }
       50% { box-shadow: 0 25px 40px rgba(0,0,0,0.6); }
@@ -170,7 +167,6 @@
       animation: dropBounce 0.9s ease forwards, shadowImpact 0.9s ease forwards;
       opacity: 1 !important;
     }
-
   </style>
 </head>
 
@@ -189,7 +185,7 @@
 <div class="hero">
 
   <div class="tag" id="tag">
-    RAPID RESCUE (AN IOT BASED AUTONOMOUS ACCIDENT DETECTION & ALERT SYSTEM)
+    RAPID RESCUE (AN IOT BASED AUTONOMOUS ACCIDENT DETECTION & IMPACT RESPONSE SYSTEM)
   </div>
 
   <div class="title">
@@ -198,7 +194,7 @@
   </div>
 
   <div class="subtitle" id="subtitle">
-    An IoT Based Autonomous Accident Detection & Alert System
+    Smart Accident Detection with Impact Analysis & Emergency Response
   </div>
 
 </div>
@@ -208,7 +204,7 @@
   <div class="card blue">
     <h3>DRIVER MODE</h3>
     <p>
-      Connect your vehicle sensors and enable active monitoring for automatic accident detection.
+      Connect vehicle sensors and enable automatic accident detection with impact analysis.
     </p>
     <a href="driver/driver.html">LAUNCH INTERFACE →</a>
   </div>
@@ -216,7 +212,7 @@
   <div class="card red">
     <h3>RESCUE DASHBOARD</h3>
     <p>
-      Command center for emergency operators to view, track, and resolve incidents in real-time.
+      View accidents live, monitor impact level, and dispatch required rescue equipment instantly.
     </p>
     <a href="rescue/rescue.html">ACCESS TERMINAL →</a>
   </div>
@@ -224,8 +220,6 @@
 </div>
 
 <script>
-
-// RAPID animation
 const rapid = "RAPID";
 const rapidEl = document.getElementById("rapidText");
 
@@ -245,7 +239,6 @@ rapid.split("").forEach((char, i) => {
 
 const rapidTime = rapid.length * 80;
 
-// RESCUE animation
 const rescue = document.getElementById("rescueText");
 rescue.style.opacity = "0";
 
@@ -253,13 +246,11 @@ setTimeout(() => {
   rescue.style.opacity = "1";
 }, rapidTime + 200);
 
-// TAG + SUBTITLE
 setTimeout(() => {
   document.getElementById("tag").classList.add("show");
   document.getElementById("subtitle").classList.add("show");
 }, rapidTime + 700);
 
-// CARDS DROP + SHADOW IMPACT
 setTimeout(() => {
   const cards = document.querySelectorAll(".card");
 
@@ -269,7 +260,6 @@ setTimeout(() => {
     cards[1].classList.add("show-drop");
   }, 200);
 
-  // LOCK FINAL STATE
   setTimeout(() => {
     cards.forEach(card => {
       card.style.opacity = "1";
@@ -278,7 +268,6 @@ setTimeout(() => {
   }, 1200);
 
 }, rapidTime + 1200);
-
 </script>
 
 </body>

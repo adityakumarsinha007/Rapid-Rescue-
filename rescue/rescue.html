@@ -17,8 +17,18 @@
 
 <!-- 🔥 HEADER -->
 <div class="header">
+
   <h2>🚑 Rescue Command Center</h2>
-  <span class="status">🟢 LIVE SYSTEM ACTIVE</span>
+
+  <div class="header-right">
+    <span class="status">🟢 LIVE SYSTEM ACTIVE</span>
+
+    <!-- 🔊 SOUND BUTTON -->
+    <button id="soundBtn" class="sound-btn" onclick="toggleSound()">
+      🔊 ON
+    </button>
+  </div>
+
 </div>
 
 <div class="main">
@@ -66,12 +76,47 @@
         <p id="dSpeed">-</p>
       </div>
 
+      <div class="section">
+        <p class="label">Impact Level</p>
+        <p id="dImpact">-</p>
+      </div>
+
+      <div class="section">
+        <p class="label">Required Equipment</p>
+        <p id="dEquipment">-</p>
+      </div>
+
     </div>
 
   </div>
 
-  <!-- 🔥 MAP -->
-  <div id="map"></div>
+  <!-- 🔥 RIGHT PANEL -->
+  <div class="right-panel">
+
+    <!-- 📊 ANALYTICS PANEL -->
+    <div class="analytics-bar">
+
+      <div class="analytic-card">
+        <p class="analytic-label">TOTAL ALERTS</p>
+        <h2 id="aTotal">0</h2>
+      </div>
+
+      <div class="analytic-card">
+        <p class="analytic-label">HIGH IMPACT</p>
+        <h2 id="aHigh">0</h2>
+      </div>
+
+      <div class="analytic-card">
+        <p class="analytic-label">AVG RESPONSE</p>
+        <h2 id="aAvg">4 min</h2>
+      </div>
+
+    </div>
+
+    <!-- 🗺️ MAP -->
+    <div id="map"></div>
+
+  </div>
 
 </div>
 

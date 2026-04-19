@@ -21,7 +21,7 @@
 
 <div class="container">
 
-  <!-- LEFT CARD (NO UI CHANGE) -->
+  <!-- LEFT CARD -->
   <div class="card">
 
     <label>DRIVER NAME</label>
@@ -78,28 +78,30 @@
   <!-- RIGHT VEHICLE CARD -->
   <div class="card vehicle-card">
 
-    <!-- VEHICLE AREA -->
     <div class="vehicle-container">
 
-      <!-- 🚗 Vehicle (hidden initially) -->
+      <!-- Vehicle -->
       <div id="vehicle" style="display:none;"></div>
 
-      <!-- 💬 Comic Popup -->
+      <!-- Popup -->
       <div id="comicPopup" class="comic-popup">
         Demo Vehicle Ready 🚀
       </div>
 
     </div>
 
-    <!-- 📡 STATUS (MOVED HERE) -->
+    <!-- STATUS -->
     <div class="status-box">
       <p id="status">Status: Waiting...</p>
       <p><b>Latitude:</b> <span id="lat">-</span></p>
       <p><b>Longitude:</b> <span id="lng">-</span></p>
       <p><b>Speed:</b> <span id="spd">-</span></p>
+
+      <!-- NEW IMPACT INFO -->
+      <p><b>Impact:</b> <span id="impactLevel">-</span></p>
     </div>
 
-    <!-- 🛣️ ROAD -->
+    <!-- ROAD -->
     <div class="road"></div>
 
   </div>

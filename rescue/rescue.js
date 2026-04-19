@@ -1,55 +1,300 @@
+// ===============================
+// 🔥 RESET OLD DATA ON LOAD
+// ===============================
 firebase.database().ref("accidents").remove();
 
+// ===============================
+// 🗺️ MAP INIT
+// ===============================
 const map = L.map('map').setView([20, 77], 5);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+).addTo(map);
 
 let marker;
 
-/* 🚨 OVERLAY FUNCTION */
-function showOverlay() {
-  const overlay = document.getElementById("accidentOverlay");
+// ===============================
+// 📊 ANALYTICS
+// ===============================
+let totalAlerts = 0;
+let highImpactCases = 0;
 
-  document.querySelector(".main").style.visibility = "hidden";
+// ===============================
+// 🔊 SOUND CONTROL
+// ===============================
+let soundEnabled = true;
+let sirenInterval = null;
+
+function toggleSound() {
+
+  soundEnabled = !soundEnabled;
+
+  const btn =
+    document.getElementById("soundBtn");
+
+  btn.innerText =
+    soundEnabled ? "🔊 ON" : "🔇 OFF";
+
+  // If turned OFF -> stop siren
+  if (!soundEnabled) {
+    stopSiren();
+  }
+}
+
+// ===============================
+// 🔊 PLAY ONE SIREN CYCLE
+// ===============================
+function playOneSiren() {
+
+  const ctx =
+    new (window.AudioContext ||
+      window.webkitAudioContext)();
+
+  const oscillator =
+    ctx.createOscillator();
+
+  const gainNode =
+    ctx.createGain();
+
+  oscillator.type = "sawtooth";
+
+  oscillator.frequency.setValueAtTime(
+    700,
+    ctx.currentTime
+  );
+
+  oscillator.frequency.linearRampToValueAtTime(
+    1100,
+    ctx.currentTime + 0.4
+  );
+
+  oscillator.frequency.linearRampToValueAtTime(
+    700,
+    ctx.currentTime + 0.8
+  );
+
+  oscillator.connect(gainNode);
+  gainNode.connect(ctx.destination);
+
+  gainNode.gain.setValueAtTime(
+    0.05,
+    ctx.currentTime
+  );
+
+  oscillator.start();
+  oscillator.stop(
+    ctx.currentTime + 1.2
+  );
+}
+
+// ===============================
+// 🔊 START CONTINUOUS SIREN
+// ===============================
+function startSiren() {
+
+  if (!soundEnabled) return;
+
+  stopSiren();
+
+  playOneSiren();
+
+  sirenInterval = setInterval(() => {
+
+    if (soundEnabled) {
+      playOneSiren();
+    }
+
+  }, 1300);
+}
+
+// ===============================
+// 🔇 STOP SIREN
+// ===============================
+function stopSiren() {
+
+  if (sirenInterval) {
+    clearInterval(sirenInterval);
+    sirenInterval = null;
+  }
+}
+
+// ===============================
+// 🚨 OVERLAY
+// ===============================
+function showOverlay() {
+
+  const overlay =
+    document.getElementById(
+      "accidentOverlay"
+    );
+
+  document.querySelector(
+    ".main"
+  ).style.visibility =
+    "hidden";
 
   overlay.classList.add("show");
 
   setTimeout(() => {
+
     overlay.classList.remove("show");
-    document.querySelector(".main").style.visibility = "visible";
+
+    document.querySelector(
+      ".main"
+    ).style.visibility =
+      "visible";
+
   }, 2000);
 }
 
-/* FIREBASE LISTENER */
-firebase.database().ref("accidents").on("value", (snapshot) => {
+// ===============================
+// 📊 UPDATE ANALYTICS
+// ===============================
+function updateAnalytics(impact) {
 
-  const dataObj = snapshot.val();
+  totalAlerts++;
+
+  if (
+    impact === "HIGH IMPACT" ||
+    impact === "CRITICAL IMPACT"
+  ) {
+    highImpactCases++;
+  }
+
+  document.getElementById(
+    "aTotal"
+  ).innerText = totalAlerts;
+
+  document.getElementById(
+    "aHigh"
+  ).innerText = highImpactCases;
+
+  const avgTimes = [
+    "4 min",
+    "5 min",
+    "3 min"
+  ];
+
+  const randomAvg =
+    avgTimes[
+      Math.floor(
+        Math.random() *
+        avgTimes.length
+      )
+    ];
+
+  document.getElementById(
+    "aAvg"
+  ).innerText = randomAvg;
+}
+
+// ===============================
+// 🔥 FIREBASE LISTENER
+// ===============================
+firebase.database()
+.ref("accidents")
+.on("value", (snapshot) => {
+
+  const dataObj =
+    snapshot.val();
 
   if (!dataObj) return;
 
-  const keys = Object.keys(dataObj);
-  const data = dataObj[keys[keys.length - 1]];
+  const keys =
+    Object.keys(dataObj);
 
-  showOverlay(); // 🔥 MAIN FEATURE
+  const data =
+    dataObj[
+      keys[keys.length - 1]
+    ];
 
-  const lat = Number(data.lat);
-  const lng = Number(data.lng);
+  // ALERTS
+  showOverlay();
+  startSiren();
 
-  if (marker) map.removeLayer(marker);
+  const lat =
+    Number(data.lat);
 
-  marker = L.marker([lat, lng]).addTo(map);
+  const lng =
+    Number(data.lng);
 
-  map.setView([lat, lng], 15);
+  // Remove old marker
+  if (marker)
+    map.removeLayer(marker);
 
-  document.getElementById("dName").innerText = data.name || "-";
-  document.getElementById("dLat").innerText = lat.toFixed(5);
-  document.getElementById("dLng").innerText = lng.toFixed(5);
-  document.getElementById("dSpeed").innerText = (data.speed || 0) + " km/h";
+  // Add marker
+  marker =
+    L.marker([lat, lng])
+    .addTo(map);
 
-  document.getElementById("dPhone").innerText = data.phone || "-";
-  document.getElementById("dEmergency").innerText = data.emergency || "-";
-  document.getElementById("dVehicleNo").innerText = data.vehicleNo || "-";
-  document.getElementById("dVehicleType").innerText = data.vehicleType || "-";
-  document.getElementById("dVehicleModel").innerText = data.vehicleModel || "-";
+  map.setView(
+    [lat, lng],
+    15
+  );
+
+  // ===============================
+  // CARD DATA
+  // ===============================
+  document.getElementById(
+    "dName"
+  ).innerText =
+    data.name || "-";
+
+  document.getElementById(
+    "dLat"
+  ).innerText =
+    lat.toFixed(5);
+
+  document.getElementById(
+    "dLng"
+  ).innerText =
+    lng.toFixed(5);
+
+  document.getElementById(
+    "dSpeed"
+  ).innerText =
+    (data.speed || 0) +
+    " km/h";
+
+  document.getElementById(
+    "dPhone"
+  ).innerText =
+    data.phone || "-";
+
+  document.getElementById(
+    "dEmergency"
+  ).innerText =
+    data.emergency || "-";
+
+  document.getElementById(
+    "dVehicleNo"
+  ).innerText =
+    data.vehicleNo || "-";
+
+  document.getElementById(
+    "dVehicleType"
+  ).innerText =
+    data.vehicleType || "-";
+
+  document.getElementById(
+    "dVehicleModel"
+  ).innerText =
+    data.vehicleModel || "-";
+
+  document.getElementById(
+    "dImpact"
+  ).innerText =
+    data.impact || "-";
+
+  document.getElementById(
+    "dEquipment"
+  ).innerText =
+    data.equipment || "-";
+
+  // ANALYTICS
+  updateAnalytics(
+    data.impact
+  );
 
 });

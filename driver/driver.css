@@ -54,7 +54,7 @@ body {
   border: 1px solid rgba(255,255,255,0.1);
 }
 
-/* ===== INPUT (NO WHITE FIX) ===== */
+/* ===== INPUT ===== */
 input, select {
   width: 100%;
   padding: 12px;
@@ -62,24 +62,20 @@ input, select {
   border-radius: 10px;
   border: none;
   outline: none;
-
-  background: rgba(255,255,255,0.08) !important; /* 🔥 force glass */
+  background: rgba(255,255,255,0.08) !important;
   color: white !important;
 }
 
-/* FOCUS (NO WHITE) */
 input:focus,
 select:focus {
   background: rgba(255,255,255,0.08) !important;
   color: white !important;
 }
 
-/* PLACEHOLDER */
 input::placeholder {
   color: #bbb;
 }
 
-/* 🔥 AUTOFILL HARD FIX */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -139,7 +135,7 @@ button:hover {
   width: 120px;
 }
 
-/* ===== SELECT STYLE ===== */
+/* ===== SELECT ===== */
 select {
   appearance: none;
   background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='20' viewBox='0 0 24 24' width='20'><path d='M7 10l5 5 5-5z'/></svg>");
@@ -153,27 +149,21 @@ select option {
   color: white;
 }
 
-/* ========================= */
-/* 🚗 VEHICLE SECTION */
-/* ========================= */
-
+/* ===== VEHICLE CARD ===== */
 .vehicle-card {
   position: relative;
   overflow: hidden;
 }
 
-/* 🚗 VEHICLE */
 #vehicle {
   position: absolute;
   bottom: 28px;
   left: 20px;
   font-size: 100px;
-
   transform: perspective(600px) rotateX(12deg);
   z-index: 3;
 }
 
-/* SHADOW */
 #vehicle::after {
   content: "";
   position: absolute;
@@ -186,7 +176,7 @@ select option {
   filter: blur(6px);
 }
 
-/* ROAD */
+/* ===== ROAD ===== */
 .road {
   position: absolute;
   bottom: 0;
@@ -196,7 +186,6 @@ select option {
   z-index: 1;
 }
 
-/* LINE */
 .road::before {
   content: "";
   position: absolute;
@@ -213,7 +202,7 @@ select option {
   transform: translateY(-50%);
 }
 
-/* MOVE */
+/* ===== MOVE ===== */
 .move {
   animation: drive 4s linear infinite;
 }
@@ -227,7 +216,7 @@ select option {
   }
 }
 
-/* CRASH */
+/* ===== CRASH ===== */
 .crash {
   animation: crashFlip 1s ease-out forwards;
 }
@@ -238,7 +227,7 @@ select option {
   100% { transform: translateX(320px) rotate(180deg); }
 }
 
-/* POPUP */
+/* ===== POPUP ===== */
 .comic-popup {
   position: absolute;
   bottom: 170px;
@@ -256,7 +245,15 @@ select option {
   opacity: 1;
 }
 
-/* STATUS */
+/* ===== STATUS ===== */
 .status-box {
   margin-top: 200px;
+  position: relative;
+  z-index: 5;
+}
+
+/* ===== IMPACT LEVEL ===== */
+#impactLevel {
+  font-weight: 600;
+  color: #ff4b5c;
 }
