@@ -23,7 +23,6 @@
   <div class="header-right">
     <span class="status">🟢 LIVE SYSTEM ACTIVE</span>
 
-    <!-- 🔊 SOUND BUTTON -->
     <button id="soundBtn" class="sound-btn" onclick="toggleSound()">
       🔊 ON
     </button>
@@ -113,8 +112,21 @@
 
     </div>
 
-    <!-- 🗺️ MAP -->
-    <div id="map"></div>
+    <!-- 🗺️ MAP WRAPPER -->
+    <div class="map-wrapper">
+
+      <!-- NEW MAP TYPE SELECTOR -->
+      <select id="mapType" class="map-type" onchange="changeMapType()">
+        <option value="street">🗺️ Street</option>
+        <option value="satellite">🛰️ Satellite</option>
+        <option value="terrain">🌍 Terrain</option>
+        <option value="dark">🌙 Dark</option>
+      </select>
+
+      <!-- MAP -->
+      <div id="map"></div>
+
+    </div>
 
   </div>
 

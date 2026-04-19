@@ -8,11 +8,58 @@ firebase.database().ref("accidents").remove();
 // ===============================
 const map = L.map('map').setView([20, 77], 5);
 
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-).addTo(map);
+// ===============================
+// 🗺️ TILE LAYERS
+// ===============================
+const mapLayers = {
+
+  street: L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; OpenStreetMap'
+    }
+  ),
+
+  satellite: L.tileLayer(
+    'https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+    {
+      subdomains: ['mt0','mt1','mt2','mt3']
+    }
+  ),
+
+  terrain: L.tileLayer(
+    'https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
+    {
+      subdomains: ['mt0','mt1','mt2','mt3']
+    }
+  ),
+
+  dark: L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+  )
+
+};
+
+let currentLayer = mapLayers.street;
+currentLayer.addTo(map);
 
 let marker;
+
+// ===============================
+// 🔄 CHANGE MAP TYPE
+// ===============================
+function changeMapType() {
+
+  const type =
+    document.getElementById("mapType").value;
+
+  map.removeLayer(currentLayer);
+
+  currentLayer =
+    mapLayers[type];
+
+  currentLayer.addTo(map);
+}
 
 // ===============================
 // 📊 ANALYTICS
@@ -36,14 +83,13 @@ function toggleSound() {
   btn.innerText =
     soundEnabled ? "🔊 ON" : "🔇 OFF";
 
-  // If turned OFF -> stop siren
   if (!soundEnabled) {
     stopSiren();
   }
 }
 
 // ===============================
-// 🔊 PLAY ONE SIREN CYCLE
+// 🔊 PLAY ONE SIREN
 // ===============================
 function playOneSiren() {
 
@@ -89,7 +135,7 @@ function playOneSiren() {
 }
 
 // ===============================
-// 🔊 START CONTINUOUS SIREN
+// 🔊 START SIREN
 // ===============================
 function startSiren() {
 
@@ -233,9 +279,7 @@ firebase.database()
     15
   );
 
-  // ===============================
   // CARD DATA
-  // ===============================
   document.getElementById(
     "dName"
   ).innerText =
