@@ -4,6 +4,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background: #020617;
   color: white;
+  overflow: hidden;
 }
 
 /* HEADER */
@@ -11,8 +12,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 25px;
+  padding: 10px 25px;
   background: #0b1a3a;
+  height: 60px;
+  box-sizing: border-box;
 }
 
 .header-right {
@@ -46,31 +49,35 @@ body {
 
 /* SIDEBAR */
 .sidebar {
-  width: 270px;
-  padding: 15px;
+  width: 290px;
+  padding: 12px;
   background: #030d1f;
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .sidebar h3 {
   font-size: 13px;
   color: #aaa;
+  margin: 0 0 10px 0;
 }
 
 /* FEED CARD */
 .feed-card {
   background: linear-gradient(145deg, #0b1a3a, #020617);
-  padding: 14px;
+  padding: 12px;
   border-radius: 16px;
-  width: 230px;
-  min-height: 430px;
+  width: 100%;
+  height: calc(100vh - 105px);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   border: 1px solid rgba(255,255,255,0.1);
   box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .top {
@@ -91,7 +98,7 @@ body {
 }
 
 .section {
-  margin: 4px 0;
+  margin: 2px 0;
 }
 
 .label {
@@ -118,12 +125,28 @@ body {
 
 p, h2 {
   margin: 0;
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: 22px;
+}
+
+/* VEHICLE IMAGE */
+.rescue-vehicle-image {
+  width: 100%;
+  height: 95px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: 8px;
+  margin-bottom: 5px;
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
 /* SOLVE BUTTON */
 .solve-btn {
-  margin-top: 15px;
-  padding: 12px;
+  margin-top: auto;
+  padding: 11px;
   border-radius: 10px;
   border: none;
   cursor: pointer;
@@ -147,9 +170,11 @@ p, h2 {
 /* ANALYTICS */
 .analytics-bar {
   display: flex;
-  gap: 12px;
-  padding: 14px;
+  gap: 10px;
+  padding: 10px;
   background: #020617;
+  height: 90px;
+  box-sizing: border-box;
 }
 
 .analytic-card {
@@ -157,18 +182,18 @@ p, h2 {
   background: linear-gradient(145deg, #0b1a3a, #020617);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 14px;
-  padding: 12px;
+  padding: 10px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
 .analytic-label {
   font-size: 10px;
   color: #888;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .analytic-card h2 {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
 }
 
@@ -176,6 +201,7 @@ p, h2 {
 .map-wrapper {
   flex: 1;
   position: relative;
+  min-height: 0;
 }
 
 /* MAP */
@@ -187,8 +213,8 @@ p, h2 {
 /* MAP SELECTOR */
 .map-type {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 12px;
+  right: 12px;
   z-index: 999;
   padding: 10px 14px;
   border-radius: 10px;
@@ -248,8 +274,8 @@ p, h2 {
 /* EQUIPMENT */
 #dEquipment {
   color: #38bdf8;
-  font-size: 12px;
-  line-height: 1.4;
+  font-size: 11px;
+  line-height: 1.3;
 }
 
 @keyframes blink {

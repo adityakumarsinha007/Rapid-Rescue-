@@ -6,7 +6,7 @@ firebase.database().ref("accidents").remove();
 // ===============================
 // 🗺️ MAP INIT
 // ===============================
-const map = L.map('map').setView([20, 77], 5);
+const map = L.map("map").setView([20, 77], 5);
 
 // ===============================
 // 🗺️ TILE LAYERS
@@ -47,7 +47,6 @@ function changeMapType() {
   map.removeLayer(currentLayer);
 
   currentLayer = mapLayers[type];
-
   currentLayer.addTo(map);
 }
 
@@ -121,11 +120,7 @@ function startSiren() {
   playOneSiren();
 
   sirenInterval = setInterval(() => {
-
-    if (soundEnabled) {
-      playOneSiren();
-    }
-
+    if (soundEnabled) playOneSiren();
   }, 1300);
 }
 
@@ -161,7 +156,7 @@ function showOverlay() {
 }
 
 // ===============================
-// 📊 UPDATE ANALYTICS
+// 📊 REFRESH ANALYTICS
 // ===============================
 function refreshAnalytics() {
 
@@ -176,7 +171,7 @@ function refreshAnalytics() {
 }
 
 // ===============================
-// 🟢 SHOW NO ACCIDENT
+// SAFE MODE
 // ===============================
 function showSafeMode() {
 
@@ -190,7 +185,7 @@ function showSafeMode() {
 }
 
 // ===============================
-// 🚨 SHOW ACCIDENT CARD
+// ACCIDENT MODE
 // ===============================
 function showAccidentCard() {
 
@@ -228,7 +223,7 @@ function solveIssue() {
   map.setView([20, 77], 5);
 }
 
-// Start in safe mode
+// INITIAL
 showSafeMode();
 refreshAnalytics();
 
@@ -243,16 +238,13 @@ firebase.database()
 
   if (!dataObj) return;
 
-  const keys =
-    Object.keys(dataObj);
+  const keys = Object.keys(dataObj);
 
   const data =
     dataObj[keys[keys.length - 1]];
 
-  // Show card
   showAccidentCard();
 
-  // Overlay + siren
   showOverlay();
   startSiren();
 
@@ -266,7 +258,6 @@ firebase.database()
   marker =
     L.marker([lat, lng]).addTo(map);
 
-  // Popup
   marker.bindPopup(`
     <b>🚨 Accident Alert</b><br><br>
     <b>Driver:</b> ${data.name || "-"}<br>
@@ -283,7 +274,24 @@ firebase.database()
 
   map.setView([lat, lng], 15);
 
-  // Sidebar data
+  // ===============================
+  // 🖼 VEHICLE IMAGE
+  // ===============================
+  const img =
+    document.getElementById(
+      "dVehicleImage"
+    );
+
+  if (data.vehicleImage) {
+    img.src = data.vehicleImage;
+    img.style.display = "block";
+  } else {
+    img.style.display = "none";
+  }
+
+  // ===============================
+  // SIDEBAR DATA
+  // ===============================
   document.getElementById("dName").innerText =
     data.name || "-";
 
@@ -317,7 +325,9 @@ firebase.database()
   document.getElementById("dEquipment").innerText =
     data.equipment || "-";
 
-  // Counters
+  // ===============================
+  // COUNTERS
+  // ===============================
   totalAlerts++;
 
   if (

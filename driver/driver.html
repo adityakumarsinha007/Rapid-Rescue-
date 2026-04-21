@@ -75,12 +75,12 @@
 
   </div>
 
-  <!-- RIGHT VEHICLE CARD -->
+  <!-- RIGHT CARD -->
   <div class="card vehicle-card">
 
     <div class="vehicle-container">
 
-      <!-- Vehicle -->
+      <!-- Vehicle Emoji -->
       <div id="vehicle" style="display:none;"></div>
 
       <!-- Popup -->
@@ -92,13 +92,33 @@
 
     <!-- STATUS -->
     <div class="status-box">
+
+      <!-- NEW VEHICLE IMAGE -->
+      <label style="margin-top:0;">VEHICLE IMAGE</label>
+
+      <input
+        type="file"
+        id="vehicleImage"
+        accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+        onchange="previewVehicleImage(event)"
+      >
+
+      <img
+        id="vehiclePreview"
+        class="vehicle-preview"
+        style="display:none;"
+      >
+
+      <p style="font-size:11px;color:#888;margin-top:8px;">
+        JPG / JPEG / PNG • Max 5MB
+      </p>
+
       <p id="status">Status: Waiting...</p>
       <p><b>Latitude:</b> <span id="lat">-</span></p>
       <p><b>Longitude:</b> <span id="lng">-</span></p>
       <p><b>Speed:</b> <span id="spd">-</span></p>
-
-      <!-- NEW IMPACT INFO -->
       <p><b>Impact:</b> <span id="impactLevel">-</span></p>
+
     </div>
 
     <!-- ROAD -->

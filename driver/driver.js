@@ -22,17 +22,15 @@ let currentLat = 0;
 let currentLng = 0;
 let speed = 0;
 let tripStarted = false;
+let vehicleImageData = "";
 
 // ===============================
 // 🚗 UPDATE VEHICLE
 // ===============================
 function updateVehicle() {
 
-  const type =
-    document.getElementById("vehicleType").value;
-
-  const vehicle =
-    document.getElementById("vehicle");
+  const type = document.getElementById("vehicleType").value;
+  const vehicle = document.getElementById("vehicle");
 
   if (!type) {
     vehicle.style.display = "none";
@@ -41,6 +39,48 @@ function updateVehicle() {
 
   vehicle.style.display = "block";
   vehicle.innerText = vehicleMap[type];
+}
+
+// ===============================
+// 🖼 IMAGE PREVIEW
+// ===============================
+function previewVehicleImage(event) {
+
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  const validTypes = [
+    "image/jpeg",
+    "image/jpg",
+    "image/png"
+  ];
+
+  if (!validTypes.includes(file.type)) {
+    alert("Only JPG, JPEG, PNG allowed.");
+    event.target.value = "";
+    return;
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    alert("Image must be less than 5MB.");
+    event.target.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+    vehicleImageData = e.target.result;
+
+    const preview =
+      document.getElementById("vehiclePreview");
+
+    preview.src = vehicleImageData;
+    preview.style.display = "block";
+  };
+
+  reader.readAsDataURL(file);
 }
 
 // ===============================
@@ -167,7 +207,6 @@ async function connectESP32() {
 
     console.log(error);
 
-    // Demo fallback mode
     showPopup("Demo Mode Active ⚡");
 
     vehicle.classList.add("move");
@@ -179,7 +218,7 @@ async function connectESP32() {
 }
 
 // ===============================
-// 💥 CRASH SPEED GENERATOR
+// 💥 SPEED
 // ===============================
 function generateCrashSpeed() {
 
@@ -194,7 +233,7 @@ function generateCrashSpeed() {
 }
 
 // ===============================
-// 💥 IMPACT BY SPEED
+// 💥 IMPACT
 // ===============================
 function getImpactBySpeed() {
 
@@ -237,7 +276,6 @@ function handleAccident() {
   vehicle.classList.remove("move");
   vehicle.classList.add("crash");
 
-  // Generate speed only now
   speed = generateCrashSpeed();
 
   document.getElementById("spd").innerText =
@@ -296,6 +334,7 @@ function sendAccident(impactData) {
       vehicleNo,
       vehicleType,
       vehicleModel,
+      vehicleImage: vehicleImageData,
       lat: currentLat,
       lng: currentLng,
       speed,
@@ -304,9 +343,7 @@ function sendAccident(impactData) {
       time: Date.now()
     });
 
-    alert(
-      "🚨 Accident Sent Successfully!"
-    );
+    alert("🚨 Accident Sent Successfully!");
   });
 }
 
@@ -330,7 +367,9 @@ function saveDetails() {
 
     emergency:
       document.getElementById("emCode").value +
-      document.getElementById("emergency").value
+      document.getElementById("emergency").value,
+
+    vehicleImage: vehicleImageData
   };
 
   localStorage.setItem(
@@ -346,15 +385,19 @@ function saveDetails() {
 // ===============================
 function clearDetails() {
 
-  localStorage.removeItem(
-    "driverData"
-  );
+  localStorage.removeItem("driverData");
 
   document.getElementById("name").value = "";
   document.getElementById("vehicleModel").value = "";
   document.getElementById("vehicleNo").value = "";
   document.getElementById("vehicleType").value = "";
   document.getElementById("emergency").value = "";
+  document.getElementById("vehicleImage").value = "";
+
+  vehicleImageData = "";
+
+  document.getElementById("vehiclePreview").style.display =
+    "none";
 
   document.getElementById("vehicle").style.display =
     "none";

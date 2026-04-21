@@ -37,7 +37,7 @@
 
     <h3>🚨 EMERGENCY FEED</h3>
 
-    <!-- ✅ NO ACCIDENT MESSAGE -->
+    <!-- SAFE MODE -->
     <div id="noAccidentBox" class="feed-card">
 
       <div class="top">
@@ -54,13 +54,20 @@
 
     </div>
 
-    <!-- 🚨 ACCIDENT CARD -->
+    <!-- ACCIDENT CARD -->
     <div id="accidentCard" class="feed-card" style="display:none;">
 
       <div class="top">
         <span class="critical">CRITICAL</span>
         <span class="live">REAL-TIME</span>
       </div>
+
+      <!-- NEW VEHICLE IMAGE -->
+      <img
+        id="dVehicleImage"
+        class="rescue-vehicle-image"
+        style="display:none;"
+      >
 
       <div class="section">
         <h2 id="dVehicleNo">-</h2>
@@ -103,7 +110,6 @@
         <p id="dEquipment">-</p>
       </div>
 
-      <!-- ✔ SOLVE BUTTON -->
       <button class="solve-btn" onclick="solveIssue()">
         ✔ Solve Issue
       </button>
@@ -112,10 +118,9 @@
 
   </div>
 
-  <!-- 🔥 RIGHT PANEL -->
+  <!-- RIGHT PANEL -->
   <div class="right-panel">
 
-    <!-- 📊 ANALYTICS PANEL -->
     <div class="analytics-bar">
 
       <div class="analytic-card">
@@ -135,7 +140,6 @@
 
     </div>
 
-    <!-- 🗺️ MAP WRAPPER -->
     <div class="map-wrapper">
 
       <select id="mapType" class="map-type" onchange="changeMapType()">

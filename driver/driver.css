@@ -64,6 +64,7 @@ input, select {
   outline: none;
   background: rgba(255,255,255,0.08) !important;
   color: white !important;
+  box-sizing: border-box;
 }
 
 input:focus,
@@ -153,6 +154,7 @@ select option {
 .vehicle-card {
   position: relative;
   overflow: hidden;
+  min-height: 560px;
 }
 
 #vehicle {
@@ -247,9 +249,19 @@ select option {
 
 /* ===== STATUS ===== */
 .status-box {
-  margin-top: 200px;
+  margin-top: 20px;
   position: relative;
   z-index: 5;
+}
+
+/* ===== VEHICLE IMAGE ===== */
+.vehicle-preview {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-top: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 /* ===== IMPACT LEVEL ===== */
