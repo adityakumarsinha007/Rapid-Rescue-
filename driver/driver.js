@@ -21,37 +21,81 @@ const vehicleMap = {
 // 🚘 VEHICLE MODELS (15+ each main type)
 // ===============================
 const vehicleModels = {
+
   car: [
     "Toyota Camry","Honda City","Hyundai Verna","Maruti Swift","Kia Seltos",
     "Skoda Slavia","Volkswagen Virtus","Tata Nexon","Mahindra XUV300",
     "Toyota Innova","Hyundai i20","Honda Amaze","Renault Kiger",
     "MG Hector","Nissan Magnite"
   ],
+
   bike: [
     "Royal Enfield Classic 350","Yamaha R15","KTM Duke 200","Bajaj Pulsar 220",
     "TVS Apache RTR","Hero Splendor","Honda Shine","Suzuki Gixxer",
     "Yamaha MT15","Bajaj Dominar","Hero Xtreme","TVS Raider",
     "Honda Unicorn","KTM RC 390","Royal Enfield Hunter"
   ],
+
   scooter: [
     "Honda Activa","TVS Jupiter","Suzuki Access","Yamaha Fascino",
     "Hero Pleasure","Ola S1","Ather 450X","TVS Ntorq",
     "Honda Dio","Hero Destini","Aprilia SR125","Vespa VXL",
     "Suzuki Burgman","Bounce Infinity","Vida V1"
   ],
+
   truck: [
     "Tata Ace","Ashok Leyland Dost","Eicher Pro","BharatBenz",
     "Tata Signa","Mahindra Blazo","Ashok Leyland Boss","Eicher Pro 3015",
     "Tata Prima","BharatBenz 2823","Mahindra Furio","Ashok U Truck",
     "Eicher 2110","Tata LPT","Loadking"
   ],
+
   bus: [
     "Volvo B9R","Ashok Leyland Viking","Tata Starbus","Eicher Skyline",
     "BharatBenz Staff Bus","Volvo 9400","Mercedes Intercity",
     "Ashok Janbus","Tata Magna","Traveller Bus",
     "Mini School Bus","Sleeper Bus","City AC Bus",
     "Electric Bus","Tourist Coach"
+  ],
+
+  taxi: [
+    "Toyota Etios","Maruti Dzire","Hyundai Xcent","Honda Amaze",
+    "Tata Tigor","Mahindra Logan","Toyota Innova Taxi",
+    "WagonR Cab","Swift Tour","Hyundai Aura"
+  ],
+
+  auto: [
+    "Bajaj RE","Piaggio Ape","Mahindra Alfa","Atul Gem",
+    "TVS King","Bajaj Maxima","Electric Auto","City Auto",
+    "Cargo Auto","Passenger Auto"
+  ],
+
+  sports: [
+    "Ferrari 488","Lamborghini Huracan","Porsche 911","Audi R8",
+    "BMW M4","Nissan GT-R","Ford Mustang","Chevrolet Camaro",
+    "McLaren 720S","Jaguar F-Type"
+  ],
+
+  ambulance: [
+    "Force Traveller","Tata Winger","Mahindra Supro",
+    "Maruti Eeco Ambulance","Tempo Traveller ICU",
+    "Basic Life Support Van","Advanced Life Support Van",
+    "ICU Ambulance","Emergency Response Van","Mobile Clinic Van"
+  ],
+
+  van: [
+    "Maruti Eeco","Toyota Hiace","Force Traveller",
+    "Tata Winger","Mahindra Supro Van","Kia Carnival",
+    "Mercedes V-Class","Passenger Van","Cargo Van","Mini Van"
+  ],
+
+  pickup: [
+    "Toyota Hilux","Mahindra Bolero Pickup","Isuzu D-Max",
+    "Tata Yodha","Ashok Dost Pickup","Mahindra Jeeto",
+    "Force Pickup","Bolero Camper","Single Cabin Pickup",
+    "Double Cabin Pickup"
   ]
+
 };
 
 // ===============================
