@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>Rescue Command</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="rescue.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
@@ -10,34 +9,57 @@
 
 <body>
 
-<!-- 🚨 FULL SCREEN OVERLAY -->
+<!-- ALERT OVERLAY -->
 <div id="accidentOverlay" class="accident-overlay">
   <span>ACCIDENT DETECTED</span>
 </div>
 
-<!-- 🔥 HEADER -->
+<!-- HISTORY MODAL -->
+<div id="historyModal" class="history-modal">
+  <div class="history-box">
+
+    <div class="history-top">
+      <h3>📜 Solved Cases History</h3>
+      <button class="close-history" onclick="closeHistory()">✖</button>
+    </div>
+
+    <div id="historyList" class="history-list">
+      <p style="color:#aaa;">No solved records yet.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- HEADER -->
 <div class="header">
 
   <h2>🚑 Rescue Command Center</h2>
 
   <div class="header-right">
+
     <span class="status">🟢 LIVE SYSTEM ACTIVE</span>
+
+    <button class="history-btn" onclick="openHistory()">
+      📜 History
+    </button>
 
     <button id="soundBtn" class="sound-btn" onclick="toggleSound()">
       🔊 ON
     </button>
+
   </div>
 
 </div>
 
+<!-- MAIN -->
 <div class="main">
 
-  <!-- 🔥 SIDEBAR -->
+  <!-- LEFT -->
   <div class="sidebar">
 
     <h3>🚨 EMERGENCY FEED</h3>
 
-    <!-- SAFE MODE -->
+    <!-- SAFE -->
     <div id="noAccidentBox" class="feed-card">
 
       <div class="top">
@@ -45,16 +67,14 @@
         <span class="live">MONITORING</span>
       </div>
 
-      <div style="margin-top:30px; text-align:center;">
+      <div style="margin-top:30px;text-align:center;">
         <h2 style="font-size:20px;">✅ No Accident Spotted</h2>
-        <p style="margin-top:12px; color:#aaa;">
-          System Monitoring Live...
-        </p>
+        <p style="margin-top:12px;color:#aaa;">System Monitoring Live...</p>
       </div>
 
     </div>
 
-    <!-- ACCIDENT CARD -->
+    <!-- ACCIDENT -->
     <div id="accidentCard" class="feed-card" style="display:none;">
 
       <div class="top">
@@ -62,12 +82,7 @@
         <span class="live">REAL-TIME</span>
       </div>
 
-      <!-- NEW VEHICLE IMAGE -->
-      <img
-        id="dVehicleImage"
-        class="rescue-vehicle-image"
-        style="display:none;"
-      >
+      <img id="dVehicleImage" class="rescue-vehicle-image" style="display:none;">
 
       <div class="section">
         <h2 id="dVehicleNo">-</h2>
@@ -118,7 +133,7 @@
 
   </div>
 
-  <!-- RIGHT PANEL -->
+  <!-- RIGHT -->
   <div class="right-panel">
 
     <div class="analytics-bar">

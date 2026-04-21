@@ -1,16 +1,15 @@
+// COMPLETE REPLACE rescue.js
+
 // ===============================
-// 🔥 RESET OLD DATA ON LOAD
+// RESET LIVE DATA
 // ===============================
 firebase.database().ref("accidents").remove();
 
 // ===============================
-// 🗺️ MAP INIT
+// MAP INIT
 // ===============================
 const map = L.map("map").setView([20, 77], 5);
 
-// ===============================
-// 🗺️ TILE LAYERS
-// ===============================
 const mapLayers = {
   street: L.tileLayer(
     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -18,12 +17,12 @@ const mapLayers = {
 
   satellite: L.tileLayer(
     "https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
-    { subdomains: ["mt0", "mt1", "mt2", "mt3"] }
+    { subdomains: ["mt0","mt1","mt2","mt3"] }
   ),
 
   terrain: L.tileLayer(
     "https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}",
-    { subdomains: ["mt0", "mt1", "mt2", "mt3"] }
+    { subdomains: ["mt0","mt1","mt2","mt3"] }
   ),
 
   dark: L.tileLayer(
@@ -37,46 +36,46 @@ currentLayer.addTo(map);
 let marker = null;
 
 // ===============================
-// 🔄 CHANGE MAP TYPE
+// ANALYTICS
 // ===============================
-function changeMapType() {
+let totalAlerts = 0;
+let highImpactCases = 0;
+let solvedCases = 0;
+let currentCaseData = null;
+
+// ===============================
+// MAP TYPE
+// ===============================
+function changeMapType(){
 
   const type =
     document.getElementById("mapType").value;
 
   map.removeLayer(currentLayer);
-
   currentLayer = mapLayers[type];
   currentLayer.addTo(map);
 }
 
 // ===============================
-// 📊 ANALYTICS
-// ===============================
-let totalAlerts = 0;
-let highImpactCases = 0;
-let solvedCases = 0;
-
-// ===============================
-// 🔊 SOUND
+// SOUND
 // ===============================
 let soundEnabled = true;
 let sirenInterval = null;
 
-function toggleSound() {
+function toggleSound(){
 
   soundEnabled = !soundEnabled;
 
   document.getElementById("soundBtn").innerText =
     soundEnabled ? "🔊 ON" : "🔇 OFF";
 
-  if (!soundEnabled) stopSiren();
+  if(!soundEnabled) stopSiren();
 }
 
-function playOneSiren() {
+function playOneSiren(){
 
   const ctx =
-    new (window.AudioContext ||
+    new(window.AudioContext ||
       window.webkitAudioContext)();
 
   const osc = ctx.createOscillator();
@@ -85,57 +84,52 @@ function playOneSiren() {
   osc.type = "sawtooth";
 
   osc.frequency.setValueAtTime(
-    700,
-    ctx.currentTime
+    700, ctx.currentTime
   );
 
   osc.frequency.linearRampToValueAtTime(
-    1100,
-    ctx.currentTime + 0.4
+    1100, ctx.currentTime + 0.4
   );
 
   osc.frequency.linearRampToValueAtTime(
-    700,
-    ctx.currentTime + 0.8
+    700, ctx.currentTime + 0.8
   );
 
   osc.connect(gain);
   gain.connect(ctx.destination);
 
   gain.gain.setValueAtTime(
-    0.05,
-    ctx.currentTime
+    0.05, ctx.currentTime
   );
 
   osc.start();
   osc.stop(ctx.currentTime + 1.2);
 }
 
-function startSiren() {
+function startSiren(){
 
-  if (!soundEnabled) return;
+  if(!soundEnabled) return;
 
   stopSiren();
-
   playOneSiren();
 
   sirenInterval = setInterval(() => {
-    if (soundEnabled) playOneSiren();
-  }, 1300);
+    if(soundEnabled) playOneSiren();
+  },1300);
 }
 
-function stopSiren() {
+function stopSiren(){
 
-  if (sirenInterval) {
+  if(sirenInterval){
     clearInterval(sirenInterval);
     sirenInterval = null;
   }
 }
 
 // ===============================
-// 🚨 OVERLAY
+// OVERLAY
 // ===============================
-function showOverlay() {
+function showOverlay(){
 
   const overlay =
     document.getElementById("accidentOverlay");
@@ -152,13 +146,13 @@ function showOverlay() {
     document.querySelector(".main").style.visibility =
       "visible";
 
-  }, 2000);
+  },2000);
 }
 
 // ===============================
-// 📊 REFRESH ANALYTICS
+// ANALYTICS REFRESH
 // ===============================
-function refreshAnalytics() {
+function refreshAnalytics(){
 
   document.getElementById("aTotal").innerText =
     totalAlerts;
@@ -171,43 +165,106 @@ function refreshAnalytics() {
 }
 
 // ===============================
-// SAFE MODE
+// SAFE / ALERT MODE
 // ===============================
-function showSafeMode() {
+function showSafeMode(){
 
-  document.getElementById(
-    "noAccidentBox"
-  ).style.display = "flex";
+  document.getElementById("noAccidentBox").style.display =
+    "block";
 
-  document.getElementById(
-    "accidentCard"
-  ).style.display = "none";
+  document.getElementById("accidentCard").style.display =
+    "none";
+}
+
+function showAccidentCard(){
+
+  document.getElementById("noAccidentBox").style.display =
+    "none";
+
+  document.getElementById("accidentCard").style.display =
+    "block";
 }
 
 // ===============================
-// ACCIDENT MODE
+// HISTORY
 // ===============================
-function showAccidentCard() {
+function openHistory(){
 
-  document.getElementById(
-    "noAccidentBox"
-  ).style.display = "none";
+  document.getElementById("historyModal").style.display =
+    "flex";
 
-  document.getElementById(
-    "accidentCard"
-  ).style.display = "flex";
+  loadHistory();
+}
+
+function closeHistory(){
+
+  document.getElementById("historyModal").style.display =
+    "none";
+}
+
+function loadHistory(){
+
+  const list =
+    document.getElementById("historyList");
+
+  firebase.database()
+    .ref("solvedCases")
+    .once("value", snapshot => {
+
+      const data = snapshot.val();
+
+      if(!data){
+        list.innerHTML =
+          "<p style='color:#aaa;'>No solved records yet.</p>";
+        return;
+      }
+
+      let html = "";
+
+      const keys =
+        Object.keys(data).reverse();
+
+      keys.forEach(key => {
+
+        const item = data[key];
+
+        html += `
+          <div class="history-item">
+            <p><b>Driver:</b> ${item.name || "-"}</p>
+            <p><b>Vehicle:</b> ${item.vehicleNo || "-"}</p>
+            <p><b>Impact:</b> ${item.impact || "-"}</p>
+            <p><b>Location:</b> ${item.lat || "-"}, ${item.lng || "-"}</p>
+            <p><b>Solved:</b> ${item.solvedAt || "-"}</p>
+          </div>
+        `;
+      });
+
+      list.innerHTML = html;
+
+    });
 }
 
 // ===============================
-// ✔ SOLVE ISSUE
+// SOLVE ISSUE
 // ===============================
-function solveIssue() {
+function solveIssue(){
+
+  if(currentCaseData){
+
+    firebase.database()
+      .ref("solvedCases")
+      .push({
+        ...currentCaseData,
+        solvedAt:
+          new Date().toLocaleString()
+      });
+  }
 
   firebase.database()
     .ref("accidents")
     .remove();
 
-  if (marker) {
+  if(marker){
     map.removeLayer(marker);
     marker = null;
   }
@@ -220,89 +277,73 @@ function solveIssue() {
 
   showSafeMode();
 
-  map.setView([20, 77], 5);
+  map.setView([20,77],5);
 }
 
+// ===============================
 // INITIAL
+// ===============================
 showSafeMode();
 refreshAnalytics();
 
 // ===============================
-// 🔥 FIREBASE LISTENER
+// FIREBASE LISTENER
 // ===============================
 firebase.database()
 .ref("accidents")
-.on("value", (snapshot) => {
+.on("value", snapshot => {
 
   const dataObj = snapshot.val();
 
-  if (!dataObj) return;
+  if(!dataObj) return;
 
-  const keys = Object.keys(dataObj);
+  const keys =
+    Object.keys(dataObj);
 
   const data =
     dataObj[keys[keys.length - 1]];
 
-  showAccidentCard();
+  currentCaseData = data;
 
+  showAccidentCard();
   showOverlay();
   startSiren();
 
   const lat = Number(data.lat);
   const lng = Number(data.lng);
 
-  if (marker) {
+  if(marker){
     map.removeLayer(marker);
   }
 
   marker =
-    L.marker([lat, lng]).addTo(map);
+    L.marker([lat,lng]).addTo(map);
 
   marker.bindPopup(`
     <b>🚨 Accident Alert</b><br><br>
     <b>Driver:</b> ${data.name || "-"}<br>
-    <b>Vehicle No:</b> ${data.vehicleNo || "-"}<br>
-    <b>Type:</b> ${data.vehicleType || "-"}<br>
-    <b>Model:</b> ${data.vehicleModel || "-"}<br>
-    <b>Emergency:</b> ${data.emergency || "-"}<br>
-    <b>Speed:</b> ${data.speed || 0} km/h<br>
-    <b>Impact:</b> ${data.impact || "-"}<br>
-    <b>Equipment:</b> ${data.equipment || "-"}
+    <b>Vehicle:</b> ${data.vehicleNo || "-"}<br>
+    <b>Impact:</b> ${data.impact || "-"}
   `);
 
   marker.openPopup();
 
-  map.setView([lat, lng], 15);
+  map.setView([lat,lng],15);
 
-  // ===============================
-  // 🖼 VEHICLE IMAGE
-  // ===============================
+  // IMAGE
   const img =
-    document.getElementById(
-      "dVehicleImage"
-    );
+    document.getElementById("dVehicleImage");
 
-  if (data.vehicleImage) {
+  if(data.vehicleImage){
     img.src = data.vehicleImage;
     img.style.display = "block";
-  } else {
+  }else{
     img.style.display = "none";
   }
 
-  // ===============================
-  // SIDEBAR DATA
-  // ===============================
+  // DETAILS
   document.getElementById("dName").innerText =
     data.name || "-";
-
-  document.getElementById("dLat").innerText =
-    lat.toFixed(5);
-
-  document.getElementById("dLng").innerText =
-    lng.toFixed(5);
-
-  document.getElementById("dSpeed").innerText =
-    (data.speed || 0) + " km/h";
 
   document.getElementById("dPhone").innerText =
     data.phone || "-";
@@ -319,21 +360,28 @@ firebase.database()
   document.getElementById("dVehicleModel").innerText =
     data.vehicleModel || "-";
 
+  document.getElementById("dLat").innerText =
+    lat.toFixed(5);
+
+  document.getElementById("dLng").innerText =
+    lng.toFixed(5);
+
+  document.getElementById("dSpeed").innerText =
+    (data.speed || 0) + " km/h";
+
   document.getElementById("dImpact").innerText =
     data.impact || "-";
 
   document.getElementById("dEquipment").innerText =
     data.equipment || "-";
 
-  // ===============================
   // COUNTERS
-  // ===============================
   totalAlerts++;
 
-  if (
+  if(
     data.impact === "HIGH IMPACT" ||
     data.impact === "CRITICAL IMPACT"
-  ) {
+  ){
     highImpactCases++;
   }
 
