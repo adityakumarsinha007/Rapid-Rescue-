@@ -1,5 +1,7 @@
+// COMPLETE REPLACE driver.js
+
 // ===============================
-// 🚗 VEHICLE MAP
+// 🚗 VEHICLE EMOJI MAP
 // ===============================
 const vehicleMap = {
   car: "🚗",
@@ -16,16 +18,54 @@ const vehicleMap = {
 };
 
 // ===============================
-// 📍 GLOBAL VARIABLES
+// 🚘 VEHICLE MODELS (15+ each main type)
+// ===============================
+const vehicleModels = {
+  car: [
+    "Toyota Camry","Honda City","Hyundai Verna","Maruti Swift","Kia Seltos",
+    "Skoda Slavia","Volkswagen Virtus","Tata Nexon","Mahindra XUV300",
+    "Toyota Innova","Hyundai i20","Honda Amaze","Renault Kiger",
+    "MG Hector","Nissan Magnite"
+  ],
+  bike: [
+    "Royal Enfield Classic 350","Yamaha R15","KTM Duke 200","Bajaj Pulsar 220",
+    "TVS Apache RTR","Hero Splendor","Honda Shine","Suzuki Gixxer",
+    "Yamaha MT15","Bajaj Dominar","Hero Xtreme","TVS Raider",
+    "Honda Unicorn","KTM RC 390","Royal Enfield Hunter"
+  ],
+  scooter: [
+    "Honda Activa","TVS Jupiter","Suzuki Access","Yamaha Fascino",
+    "Hero Pleasure","Ola S1","Ather 450X","TVS Ntorq",
+    "Honda Dio","Hero Destini","Aprilia SR125","Vespa VXL",
+    "Suzuki Burgman","Bounce Infinity","Vida V1"
+  ],
+  truck: [
+    "Tata Ace","Ashok Leyland Dost","Eicher Pro","BharatBenz",
+    "Tata Signa","Mahindra Blazo","Ashok Leyland Boss","Eicher Pro 3015",
+    "Tata Prima","BharatBenz 2823","Mahindra Furio","Ashok U Truck",
+    "Eicher 2110","Tata LPT","Loadking"
+  ],
+  bus: [
+    "Volvo B9R","Ashok Leyland Viking","Tata Starbus","Eicher Skyline",
+    "BharatBenz Staff Bus","Volvo 9400","Mercedes Intercity",
+    "Ashok Janbus","Tata Magna","Traveller Bus",
+    "Mini School Bus","Sleeper Bus","City AC Bus",
+    "Electric Bus","Tourist Coach"
+  ]
+};
+
+// ===============================
+// GLOBAL VARIABLES
 // ===============================
 let currentLat = 0;
 let currentLng = 0;
 let speed = 0;
 let tripStarted = false;
 let vehicleImageData = "";
+let bluetoothConnected = false;
 
 // ===============================
-// 🚗 UPDATE VEHICLE
+// UPDATE VEHICLE ICON
 // ===============================
 function updateVehicle() {
 
@@ -42,31 +82,33 @@ function updateVehicle() {
 }
 
 // ===============================
-// 🖼 IMAGE PREVIEW
+// LOAD MODELS
+// ===============================
+function loadVehicleModels() {
+
+  const type = document.getElementById("vehicleType").value;
+  const model = document.getElementById("vehicleModel");
+
+  model.innerHTML =
+    `<option value="">Select Vehicle Model</option>`;
+
+  if (!vehicleModels[type]) return;
+
+  vehicleModels[type].forEach(item => {
+    const option = document.createElement("option");
+    option.value = item;
+    option.textContent = item;
+    model.appendChild(option);
+  });
+}
+
+// ===============================
+// IMAGE PREVIEW
 // ===============================
 function previewVehicleImage(event) {
 
   const file = event.target.files[0];
-
   if (!file) return;
-
-  const validTypes = [
-    "image/jpeg",
-    "image/jpg",
-    "image/png"
-  ];
-
-  if (!validTypes.includes(file.type)) {
-    alert("Only JPG, JPEG, PNG allowed.");
-    event.target.value = "";
-    return;
-  }
-
-  if (file.size > 5 * 1024 * 1024) {
-    alert("Image must be less than 5MB.");
-    event.target.value = "";
-    return;
-  }
 
   const reader = new FileReader();
 
@@ -84,24 +126,23 @@ function previewVehicleImage(event) {
 }
 
 // ===============================
-// 💬 POPUP
+// POPUP
 // ===============================
-function showPopup(message = "Demo Vehicle Ready 🚀") {
+function showPopup(message="Demo Vehicle Ready 🚀") {
 
   const popup =
     document.getElementById("comicPopup");
 
   popup.innerText = message;
-
   popup.classList.add("show");
 
-  setTimeout(() => {
+  setTimeout(()=>{
     popup.classList.remove("show");
-  }, 2200);
+  },2200);
 }
 
 // ===============================
-// 🚀 START TRIP
+// START TRIP
 // ===============================
 function startTrip() {
 
@@ -110,12 +151,10 @@ function startTrip() {
   document.getElementById("status").innerText =
     "Tracking started...";
 
-  document.getElementById("spd").innerText = "-";
-
-  showPopup("Demo Vehicle Ready 🚀");
+  showPopup("Trip Started 🚀");
 
   navigator.geolocation.watchPosition(
-    (pos) => {
+    (pos)=>{
 
       currentLat = pos.coords.latitude;
       currentLng = pos.coords.longitude;
@@ -128,17 +167,16 @@ function startTrip() {
 
       document.getElementById("status").innerText =
         "Live Tracking Active 🚗";
-
     },
-    (error) => {
+    (error)=>{
       console.log(error);
     },
-    { enableHighAccuracy: true }
+    { enableHighAccuracy:true }
   );
 }
 
 // ===============================
-// 🔵 CONNECT VEHICLE
+// CONNECT VEHICLE
 // ===============================
 async function connectESP32() {
 
@@ -157,13 +195,17 @@ async function connectESP32() {
 
   try {
 
+    showPopup("Searching Vehicle... 🔍");
+
     const device =
       await navigator.bluetooth.requestDevice({
-        acceptAllDevices: true,
-        optionalServices: [
+        acceptAllDevices:true,
+        optionalServices:[
           "12345678-1234-1234-1234-1234567890ab"
         ]
       });
+
+    showPopup("Connecting... 🔗");
 
     const server =
       await device.gatt.connect();
@@ -180,95 +222,94 @@ async function connectESP32() {
 
     await characteristic.startNotifications();
 
-    showPopup("Vehicle Connected 🔗");
+    bluetoothConnected = true;
+
+    showPopup("Vehicle Connected ✅");
 
     document.getElementById("status").innerText =
-      "Vehicle Connected 🚗";
+      "Bluetooth Connected 🚗";
 
     vehicle.classList.add("move");
 
     characteristic.addEventListener(
       "characteristicvaluechanged",
-      (event) => {
+      (event)=>{
 
         const value =
-          new TextDecoder().decode(
-            event.target.value
-          );
+          new TextDecoder()
+          .decode(event.target.value)
+          .trim();
 
         if (value === "ACCIDENT") {
           handleAccident();
         }
-
       }
     );
 
-  } catch (error) {
+  } catch(error) {
 
     console.log(error);
 
-    showPopup("Demo Mode Active ⚡");
+    bluetoothConnected = false;
 
-    vehicle.classList.add("move");
+    showPopup("Bluetooth Connection Failed ❌");
 
-    setTimeout(() => {
-      handleAccident();
-    }, 10000);
+    document.getElementById("status").innerText =
+      "Vehicle Not Connected";
   }
 }
 
 // ===============================
-// 💥 SPEED
+// RANDOM SPEED
 // ===============================
 function generateCrashSpeed() {
 
-  const speeds = [
-    18, 24, 37, 42,
-    58, 67, 73, 84
-  ];
+  const speeds =
+    [18,24,37,42,58,67,73,84];
 
   return speeds[
-    Math.floor(Math.random() * speeds.length)
+    Math.floor(Math.random()*speeds.length)
   ];
 }
 
 // ===============================
-// 💥 IMPACT
+// IMPACT
 // ===============================
 function getImpactBySpeed() {
 
   if (speed <= 20) {
     return {
-      level: "LOW IMPACT",
-      equipment: "First Aid Kit"
+      level:"LOW IMPACT",
+      equipment:"First Aid Kit"
     };
   }
 
   if (speed <= 45) {
     return {
-      level: "MEDIUM IMPACT",
-      equipment: "Stretcher + Medical Kit"
+      level:"MEDIUM IMPACT",
+      equipment:"Stretcher + Medical Kit"
     };
   }
 
   if (speed <= 75) {
     return {
-      level: "HIGH IMPACT",
-      equipment: "Ambulance + Trauma Support"
+      level:"HIGH IMPACT",
+      equipment:"Ambulance + Trauma Support"
     };
   }
 
   return {
-    level: "CRITICAL IMPACT",
-    equipment:
-      "ICU Ambulance + Fire Rescue Tools"
+    level:"CRITICAL IMPACT",
+    equipment:"ICU Ambulance + Fire Rescue Tools"
   };
 }
 
 // ===============================
-// 💥 HANDLE ACCIDENT
+// HANDLE ACCIDENT
 // ===============================
 function handleAccident() {
+
+  if (!bluetoothConnected) return;
 
   const vehicle =
     document.getElementById("vehicle");
@@ -298,49 +339,33 @@ function handleAccident() {
 }
 
 // ===============================
-// 🚨 SEND FIREBASE
+// SEND TO FIREBASE
 // ===============================
 function sendAccident(impactData) {
-
-  if (currentLat === 0 || currentLng === 0) {
-    alert("Start Trip first ❌");
-    return;
-  }
-
-  const name =
-    document.getElementById("name").value;
-
-  const emergency =
-    document.getElementById("emCode").value +
-    document.getElementById("emergency").value;
-
-  const vehicleNo =
-    document.getElementById("vehicleNo").value;
-
-  const vehicleType =
-    document.getElementById("vehicleType").value;
-
-  const vehicleModel =
-    document.getElementById("vehicleModel").value;
 
   const ref =
     firebase.database().ref("accidents");
 
-  ref.remove().then(() => {
+  ref.remove().then(()=>{
 
     ref.push({
-      name,
-      emergency,
-      vehicleNo,
-      vehicleType,
-      vehicleModel,
-      vehicleImage: vehicleImageData,
-      lat: currentLat,
-      lng: currentLng,
-      speed,
-      impact: impactData.level,
-      equipment: impactData.equipment,
-      time: Date.now()
+      name:document.getElementById("name").value,
+      emergency:
+        document.getElementById("emCode").value +
+        document.getElementById("emergency").value,
+      vehicleNo:
+        document.getElementById("vehicleNo").value,
+      vehicleType:
+        document.getElementById("vehicleType").value,
+      vehicleModel:
+        document.getElementById("vehicleModel").value,
+      vehicleImage:vehicleImageData,
+      lat:currentLat,
+      lng:currentLng,
+      speed:speed,
+      impact:impactData.level,
+      equipment:impactData.equipment,
+      time:Date.now()
     });
 
     alert("🚨 Accident Sent Successfully!");
@@ -348,28 +373,23 @@ function sendAccident(impactData) {
 }
 
 // ===============================
-// 💾 SAVE
+// SAVE
 // ===============================
 function saveDetails() {
 
   const data = {
     name:
       document.getElementById("name").value,
-
-    vehicleModel:
-      document.getElementById("vehicleModel").value,
-
-    vehicleNo:
-      document.getElementById("vehicleNo").value,
-
     vehicleType:
       document.getElementById("vehicleType").value,
-
+    vehicleModel:
+      document.getElementById("vehicleModel").value,
+    vehicleNo:
+      document.getElementById("vehicleNo").value,
     emergency:
       document.getElementById("emCode").value +
       document.getElementById("emergency").value,
-
-    vehicleImage: vehicleImageData
+    vehicleImage:vehicleImageData
   };
 
   localStorage.setItem(
@@ -381,20 +401,21 @@ function saveDetails() {
 }
 
 // ===============================
-// 🗑 CLEAR
+// CLEAR
 // ===============================
 function clearDetails() {
 
   localStorage.removeItem("driverData");
 
   document.getElementById("name").value = "";
-  document.getElementById("vehicleModel").value = "";
-  document.getElementById("vehicleNo").value = "";
   document.getElementById("vehicleType").value = "";
+  document.getElementById("vehicleNo").value = "";
   document.getElementById("emergency").value = "";
-  document.getElementById("vehicleImage").value = "";
 
-  vehicleImageData = "";
+  document.getElementById("vehicleModel").innerHTML =
+    `<option value="">Select Vehicle Model</option>`;
+
+  document.getElementById("vehicleImage").value = "";
 
   document.getElementById("vehiclePreview").style.display =
     "none";
@@ -402,11 +423,10 @@ function clearDetails() {
   document.getElementById("vehicle").style.display =
     "none";
 
-  document.getElementById("impactLevel").innerText =
-    "-";
+  document.getElementById("impactLevel").innerText = "-";
+  document.getElementById("spd").innerText = "-";
 
-  document.getElementById("spd").innerText =
-    "-";
+  bluetoothConnected = false;
 
   alert("🗑 Data Cleared!");
 }
