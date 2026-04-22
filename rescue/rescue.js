@@ -1,8 +1,3 @@
-// COMPLETE REPLACE rescue.js
-
-// ===============================
-// RESET LIVE DATA
-// ===============================
 firebase.database().ref("accidents").remove();
 
 // ===============================

@@ -1,5 +1,3 @@
-// COMPLETE REPLACE driver.js
-
 // ===============================
 // 🚗 VEHICLE EMOJI MAP
 // ===============================
