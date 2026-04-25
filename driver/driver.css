@@ -60,9 +60,7 @@ body{
   overflow:auto;
 }
 
-/* ========================= */
-/* INPUT FIXED SECTION */
-/* ========================= */
+/* INPUTS */
 input,
 select,
 textarea{
@@ -73,44 +71,27 @@ textarea{
   outline:none;
   border-radius:10px;
   background:#102347 !important;
-  background-color:#102347 !important;
   color:#fff !important;
   box-sizing:border-box;
-
   appearance:none;
   -webkit-appearance:none;
   -moz-appearance:none;
-
   caret-color:#fff;
 }
 
-/* placeholder */
 input::placeholder,
 textarea::placeholder{
   color:#9ca3af;
 }
 
-/* focus */
 input:focus,
 select:focus,
 textarea:focus{
   background:#102347 !important;
-  background-color:#102347 !important;
   color:#fff !important;
   box-shadow:0 0 0 1px rgba(79,172,254,.45);
 }
 
-/* typed data still same */
-input:not(:placeholder-shown),
-input:valid,
-select:valid,
-textarea:valid{
-  background:#102347 !important;
-  background-color:#102347 !important;
-  color:#fff !important;
-}
-
-/* browser autofill */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -118,11 +99,8 @@ input:-webkit-autofill:active,
 select:-webkit-autofill{
   -webkit-text-fill-color:#fff !important;
   -webkit-box-shadow:0 0 0 1000px #102347 inset !important;
-  box-shadow:0 0 0 1000px #102347 inset !important;
-  transition:background-color 9999s ease-in-out 0s;
 }
 
-/* dropdown options */
 select option{
   background:#102347;
   color:#fff;
@@ -203,6 +181,20 @@ button:hover{
   filter:blur(6px);
 }
 
+/* VEHICLE MOVEMENT */
+.move{
+  animation:drive 4s linear infinite;
+}
+
+@keyframes drive{
+  0%{
+    transform:translateX(520px) perspective(600px) rotateX(12deg);
+  }
+  100%{
+    transform:translateX(-130px) perspective(600px) rotateX(12deg);
+  }
+}
+
 /* ROAD */
 .road{
   position:absolute;
@@ -228,57 +220,6 @@ button:hover{
     transparent 40px,
     transparent 80px
   );
-}
-
-/* hidden obstacle */
-.road::after{
-  content:"🪨";
-  position:absolute;
-  right:70px;
-  bottom:10px;
-  font-size:105px;
-  line-height:1;
-  z-index:4;
-  opacity:0;
-}
-
-/* accident obstacle */
-.vehicle-card.accident .road::after{
-  opacity:1;
-  animation:swapObstacle 1.2s steps(1);
-}
-
-@keyframes swapObstacle{
-  0%,49%{content:"🪨";}
-  50%,100%{content:"🚚";}
-}
-
-/* MOVE */
-.move{
-  animation:drive 4s linear infinite;
-}
-
-@keyframes drive{
-  0%{
-    transform:translateX(520px) perspective(600px) rotateX(12deg);
-  }
-  100%{
-    transform:translateX(-130px) perspective(600px) rotateX(12deg);
-  }
-}
-
-/* CRASH */
-.crash{
-  animation:crashFlip 1.2s ease-out forwards;
-}
-
-@keyframes crashFlip{
-  0%{transform:translateX(170px) rotate(0deg);}
-  25%{transform:translateX(215px) rotate(-10deg) scale(1.05);}
-  40%{transform:translateX(240px) rotate(35deg) translateY(-15px);}
-  65%{transform:translateX(260px) rotate(110deg) translateY(-45px);}
-  85%{transform:translateX(275px) rotate(175deg) translateY(-18px);}
-  100%{transform:translateX(280px) rotate(180deg) translateY(0);}
 }
 
 /* POPUP */
@@ -319,7 +260,85 @@ button:hover{
   border:1px solid rgba(255,255,255,.1);
 }
 
-#impactLevel{
-  font-weight:600;
-  color:#ff4b5c;
+/* TREE TWO STEPS DOWN */
+.road-tree{
+  position:absolute;
+  left:-120px;
+  bottom:42px;
+  font-size:180px;
+  z-index:2;
+  opacity:0;
 }
+
+.treeMove{
+  animation:treePass 2s linear forwards;
+}
+
+@keyframes treePass{
+  0%{
+    left:-120px;
+    bottom:42px;
+    opacity:1;
+  }
+  100%{
+    left:520px;
+    bottom:42px;
+    opacity:0;
+  }
+}
+
+/* BIRDS */
+.bird-flock{
+  position:absolute;
+  right:-250px;
+  top:355px;
+  z-index:3;
+  opacity:0;
+  white-space:nowrap;
+}
+
+.bird{
+  display:inline-block;
+  font-size:24px;
+  margin:0 3px;
+  animation:wingFlap .45s infinite ease-in-out;
+}
+
+.bird:nth-child(2){animation-delay:.1s;}
+.bird:nth-child(3){animation-delay:.2s;}
+.bird:nth-child(4){animation-delay:.3s;}
+.bird:nth-child(5){animation-delay:.4s;}
+
+@keyframes wingFlap{
+  0%{transform:translateY(0) rotate(0deg);}
+  50%{transform:translateY(-4px) rotate(-8deg);}
+  100%{transform:translateY(0) rotate(0deg);}
+}
+
+.birdFly{
+  animation:birdPass 4s linear forwards;
+}
+
+@keyframes birdPass{
+  0%{
+    right:-250px;
+    top:355px;
+    opacity:1;
+  }
+  100%{
+    right:520px;
+    top:345px;
+    opacity:0;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

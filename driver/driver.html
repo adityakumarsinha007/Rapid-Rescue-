@@ -27,7 +27,6 @@
     <label>DRIVER NAME</label>
     <input id="name" placeholder="Enter your full name">
 
-    <!-- MOVED ABOVE -->
     <label>VEHICLE TYPE</label>
     <select id="vehicleType" onchange="updateVehicle(); loadVehicleModels();">
       <option value="">Select Vehicle Type</option>
@@ -44,7 +43,6 @@
       <option value="pickup">🛻 Pickup</option>
     </select>
 
-    <!-- NOW MODEL DROPDOWN -->
     <label>VEHICLE MODEL</label>
     <select id="vehicleModel">
       <option value="">Select Vehicle Model</option>
@@ -54,6 +52,7 @@
     <input id="vehicleNo" placeholder="e.g. KA-01-AB-1234">
 
     <label>EMERGENCY CONTACT NUMBER</label>
+
     <div class="row">
       <select id="emCode" class="country">
         <option value="+91">🇮🇳 +91</option>
@@ -85,8 +84,23 @@
 
     <div class="vehicle-container">
 
+      <!-- TREE -->
+      <div id="roadTree" class="road-tree">🌳</div>
+
+      <!-- EAGLE BIRDS -->
+      <div id="birdFlock" class="bird-flock">
+        <span class="bird">🦅</span><span class="bird">🦅</span>
+        <span class="bird">🦅</span><span class="bird">🦅</span>
+        <span class="bird">🦅</span><span class="bird">🦅</span>
+        <span class="bird">🦅</span>
+        <span class="bird">🦅</span>
+        
+      </div>
+
+      <!-- VEHICLE -->
       <div id="vehicle" style="display:none;"></div>
 
+      <!-- POPUP -->
       <div id="comicPopup" class="comic-popup">
         Demo Vehicle Ready 🚀
       </div>
@@ -104,7 +118,11 @@
         onchange="previewVehicleImage(event)"
       >
 
-      <img id="vehiclePreview" class="vehicle-preview" style="display:none;">
+      <img
+        id="vehiclePreview"
+        class="vehicle-preview"
+        style="display:none;"
+      >
 
       <p style="font-size:11px;color:#888;margin-top:8px;">
         JPG / JPEG / PNG • Max 5MB
