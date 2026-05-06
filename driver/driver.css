@@ -331,6 +331,53 @@ button:hover{
     opacity:0;
   }
 }
+/* ===============================
+🚨 VEHICLE ACCIDENT EFFECT
+=============================== */
+
+.crash{
+
+  animation:
+  vehicleCrash 1.2s ease forwards !important;
+}
+
+@keyframes vehicleCrash{
+
+  0%{
+    transform:
+    translateX(0)
+    rotate(0deg);
+  }
+
+  20%{
+    transform:
+    translateX(40px)
+    rotate(10deg);
+  }
+
+  40%{
+    transform:
+    translateX(80px)
+    rotate(-20deg);
+  }
+
+  60%{
+    transform:
+    translateX(120px)
+    rotate(70deg);
+  }
+
+  100%{
+    transform:
+    translateX(140px)
+    rotate(95deg);
+  }
+}
+
+
+
+
+
 
 
 

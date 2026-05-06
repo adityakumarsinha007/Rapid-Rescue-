@@ -34,7 +34,7 @@ bike:[
 "Hero Splendor","Honda Shine","Suzuki Gixxer","Yamaha MT15","Bajaj Dominar",
 "Hero Xtreme","TVS Raider","Honda Unicorn","KTM RC 390","Royal Enfield Hunter",
 "Jawa 42","Benelli TNT","Honda Hornet","Bajaj Avenger","Hero Glamour",
-"TVS Ronin","Yamaha FZ","Suzuki Hayabusa","BMW G310R","Kawasaki Ninja",
+"TVS Ronin","Yamaha FZ\",\"Suzuki Hayabusa\",\"BMW G310R\",\"Kawasaki Ninja",
 "Royal Enfield Meteor","Hero Passion","Bajaj Platina","Honda SP125","TVS Star City"
 ],
 
@@ -52,8 +52,7 @@ truck:[
 "Mahindra Blazo","Ashok Leyland Boss","Eicher Pro 3015","Tata Prima","BharatBenz 2823",
 "Mahindra Furio","Ashok U Truck","Eicher 2110","Tata LPT","Loadking",
 "Ashok Captain","Eicher Pro 6040","Tata Ultra","Mahindra Cruzio Cargo","Tata 407",
-"Ashok Partner","BharatBenz 1217","Eicher Pro 2055","Tata 1613","Mahindra Jayo",
-"Eicher Skyline Cargo","Ashok Haulage","Tata Intra","BharatBenz 3528","Tata 709"
+"Ashok Partner","BharatBenz 1217","Eicher Pro 2055","Tata 1613","Mahindra Jayo"
 ],
 
 bus:[
@@ -61,66 +60,48 @@ bus:[
 "Volvo 9400","Mercedes Intercity","Ashok Janbus","Tata Magna","Traveller Bus",
 "Mini School Bus","Sleeper Bus","City AC Bus","Electric Bus","Tourist Coach",
 "Tata LP Bus","Ashok Cheetah","Force Urbania Bus","School Deluxe Bus","Volvo 9600",
-"Mercedes Tourismo","Airport Shuttle","City Mini Bus","Rural Passenger Bus","Luxury Coach",
-"Double Decker Bus","Metro Feeder Bus","College Bus","Hybrid Bus","Smart City Bus"
+"Mercedes Tourismo","Airport Shuttle","City Mini Bus","Rural Passenger Bus","Luxury Coach"
 ],
 
 taxi:[
 "Toyota Etios","Maruti Dzire","Hyundai Xcent","Honda Amaze","Tata Tigor",
 "Mahindra Logan","Toyota Innova Taxi","WagonR Cab","Swift Tour","Hyundai Aura",
 "Kia Carens Taxi","Ciaz Cab","Honda Mobilio Taxi","Rumion Taxi","Urban Taxi",
-"Toyota Rumion","Maruti Ertiga Cab","Hyundai Exter Cab","Tata Zest Taxi","Nissan Sunny Cab",
-"Renault Lodgy","Toyota Corolla Taxi","Mahindra Marazzo","Hyundai Grand i10 Cab","Honda City Taxi",
-"Kia Sonet Taxi","Maruti Celerio Cab","Sedan Taxi Pro","SUV Taxi","Airport Taxi"
+"Toyota Rumion","Maruti Ertiga Cab","Hyundai Exter Cab","Tata Zest Taxi","Nissan Sunny Cab"
 ],
 
 auto:[
 "Bajaj RE","Piaggio Ape","Mahindra Alfa","Atul Gem","TVS King",
 "Bajaj Maxima","Electric Auto","City Auto","Cargo Auto","Passenger Auto",
 "Metro Auto","Mini Auto","Smart Auto","Urban Auto","Deluxe Auto",
-"Piaggio Ape Xtra","Mahindra Treo","Atul Shakti","TVS EV Auto","Battery Auto",
-"School Auto","Tourist Auto","Yellow Auto","Green Auto","CNG Auto",
-"Premium Auto","Rural Auto","Delivery Auto","Mini Cargo Auto","Smart Rickshaw"
+"Piaggio Ape Xtra","Mahindra Treo","Atul Shakti","TVS EV Auto","Battery Auto"
 ],
 
 sports:[
 "Ferrari 488","Lamborghini Huracan","Porsche 911","Audi R8","BMW M4",
 "Nissan GT-R","Ford Mustang","Chevrolet Camaro","McLaren 720S","Jaguar F-Type",
-"AMG GT","Supra GR","Lotus Emira","Aston Martin","Lexus LC500",
-"Ferrari Roma","Bugatti Chiron","Koenigsegg Jesko","Pagani Huayra","Maserati MC20",
-"Dodge Challenger","Corvette Z06","BMW M8","Audi RS7","Mercedes GT63",
-"Porsche Cayman","Nissan 370Z","Toyota Supra MK5","Lambo Aventador","Ferrari SF90"
+"AMG GT","Supra GR","Lotus Emira","Aston Martin","Lexus LC500"
 ],
 
 ambulance:[
 "Force Traveller","Tata Winger","Mahindra Supro","Maruti Eeco Ambulance","Tempo Traveller ICU",
 "Basic Life Support Van","Advanced Life Support Van","ICU Ambulance","Emergency Response Van","Mobile Clinic Van",
-"Neonatal Ambulance","Cardiac Ambulance","Trauma Ambulance","Rescue Ambulance","Patient Van",
-"High Roof Ambulance","Mini Ambulance","Hospital Shuttle","Ventilator Ambulance","Dialysis Ambulance",
-"Covid Ambulance","Rural Ambulance","4x4 Rescue Ambulance","Rapid Response Van","City Emergency Van",
-"Critical Care Ambulance","Medical Coach","Oxygen Support Van","Patient Transfer Van","Smart Ambulance"
+"Neonatal Ambulance","Cardiac Ambulance","Trauma Ambulance","Rescue Ambulance","Patient Van"
 ],
 
 van:[
 "Maruti Eeco","Toyota Hiace","Force Traveller","Tata Winger","Mahindra Supro Van",
 "Kia Carnival","Mercedes V-Class","Passenger Van","Cargo Van","Mini Van",
-"Luxury Van","Family Van","Delivery Van","School Van","Urbania",
-"Hyundai Staria","Nissan NV200","Toyota Commuter","Volkswagen Transporter","Ford Transit",
-"Renault Trafic","Mini Cargo Van","Business Van","Camper Van","Travel Van",
-"Executive Van","Crew Van","Tour Van","Long Wheelbase Van","Premium Van"
+"Luxury Van","Family Van","Delivery Van","School Van","Urbania"
 ],
 
 pickup:[
 "Toyota Hilux","Mahindra Bolero Pickup","Isuzu D-Max","Tata Yodha","Ashok Dost Pickup",
 "Mahindra Jeeto","Force Pickup","Bolero Camper","Single Cabin Pickup","Double Cabin Pickup",
-"Cargo Pickup","Mini Pickup","Heavy Pickup","Rural Pickup","Utility Pickup",
-"Ford Ranger","Nissan Navara","Chevrolet Colorado","Toyota Tacoma","Mitsubishi L200",
-"Mahindra Scorpio Getaway","Tata Xenon","Farm Pickup","City Pickup","4x4 Pickup",
-"Construction Pickup","Delivery Pickup","Offroad Pickup","Crew Cab Pickup","Premium Pickup"
+"Cargo Pickup","Mini Pickup","Heavy Pickup","Rural Pickup","Utility Pickup"
 ]
 
 };
-
 
 // ===============================
 // GLOBAL VARIABLES
@@ -159,14 +140,19 @@ function loadVehicleModels(){
   const type = document.getElementById("vehicleType").value;
   const model = document.getElementById("vehicleModel");
 
-  model.innerHTML = `<option value="">Select Vehicle Model</option>`;
+  model.innerHTML =
+  `<option value="">Select Vehicle Model</option>`;
 
   if(!vehicleModels[type]) return;
 
   vehicleModels[type].forEach(item=>{
-    const option = document.createElement("option");
+
+    const option =
+    document.createElement("option");
+
     option.value = item;
     option.textContent = item;
+
     model.appendChild(option);
   });
 }
@@ -177,6 +163,7 @@ function loadVehicleModels(){
 function previewVehicleImage(event){
 
   const file = event.target.files[0];
+
   if(!file) return;
 
   const reader = new FileReader();
@@ -185,7 +172,9 @@ function previewVehicleImage(event){
 
     vehicleImageData = e.target.result;
 
-    const preview = document.getElementById("vehiclePreview");
+    const preview =
+    document.getElementById("vehiclePreview");
+
     preview.src = vehicleImageData;
     preview.style.display = "block";
   };
@@ -198,9 +187,11 @@ function previewVehicleImage(event){
 // ===============================
 function showPopup(message){
 
-  const popup = document.getElementById("comicPopup");
+  const popup =
+  document.getElementById("comicPopup");
 
   popup.innerText = message;
+
   popup.classList.add("show");
 
   setTimeout(()=>{
@@ -209,35 +200,76 @@ function showPopup(message){
 }
 
 // ===============================
-// CONNECT VEHICLE FIRST
+// CONNECT ESP32
 // ===============================
 async function connectESP32(){
 
-  const vehicle = document.getElementById("vehicle");
+  const vehicle =
+  document.getElementById("vehicle");
 
   if(vehicle.style.display === "none"){
+
     alert("Select Vehicle first 🚗");
     return;
   }
 
   try{
 
+    const device =
     await navigator.bluetooth.requestDevice({
-      acceptAllDevices:true
+
+      filters:[
+        { name:"RapidRescue" }
+      ],
+
+      optionalServices:[
+        "12345678-1234-1234-1234-1234567890ab"
+      ]
     });
+
+    document.getElementById("status").innerText =
+    "Connecting To ESP32...";
+
+    const server =
+    await device.gatt.connect();
+
+    const service =
+    await server.getPrimaryService(
+      "12345678-1234-1234-1234-1234567890ab"
+    );
+
+    const characteristic =
+    await service.getCharacteristic(
+      "abcd1234-5678-1234-5678-abcdef123456"
+    );
+
+    await characteristic.startNotifications();
 
     bluetoothConnected = true;
 
     document.getElementById("status").innerText =
-      "Vehicle Connected ✅";
+    "Vehicle Connected ✅";
 
     showPopup("Vehicle Connected 🔵");
 
-    vehicle.classList.remove("crash");
-    vehicle.classList.add("move");
+    characteristic.addEventListener(
+      "characteristicvaluechanged",
 
-    startTreeLoop();
-    startBirdLoop();
+      (event)=>{
+
+        const value =
+        new TextDecoder().decode(
+          event.target.value
+        );
+
+        console.log("BLE:", value);
+
+        if(value === "ACCIDENT"){
+
+          triggerAccident();
+        }
+      }
+    );
 
   }catch(error){
 
@@ -246,28 +278,25 @@ async function connectESP32(){
     bluetoothConnected = false;
 
     document.getElementById("status").innerText =
-      "Vehicle Not Connected";
+    "Vehicle Not Connected";
 
     showPopup("Connection Failed ❌");
   }
 }
 
 // ===============================
-// START TRIP SECOND
+// START TRIP
 // ===============================
 function startTrip(){
 
   if(!bluetoothConnected){
+
     alert("Connect Vehicle first 🔵");
     return;
   }
 
-  tripStarted = true;
-
   document.getElementById("status").innerText =
-    "Tracking Started 🚀";
-
-  showPopup("Trip Started 🚀");
+  "Requesting GPS Access 📍";
 
   navigator.geolocation.watchPosition(
 
@@ -277,21 +306,114 @@ function startTrip(){
       currentLng = pos.coords.longitude;
 
       document.getElementById("lat").innerText =
-        currentLat.toFixed(6);
+      currentLat.toFixed(6);
 
       document.getElementById("lng").innerText =
-        currentLng.toFixed(6);
+      currentLng.toFixed(6);
+
+      if(!tripStarted){
+
+        tripStarted = true;
+
+        const vehicle =
+        document.getElementById("vehicle");
+
+        vehicle.classList.remove("crash");
+        vehicle.classList.add("move");
+
+        startTreeLoop();
+        startBirdLoop();
+
+        showPopup("Trip Started 🚀");
+      }
 
       document.getElementById("status").innerText =
-        "Live Tracking Active 🚗";
+      "Live Tracking Active 🚗";
     },
 
     (error)=>{
+
       console.log(error);
+
+      alert("GPS Access Denied ❌");
+
+      document.getElementById("status").innerText =
+      "GPS Permission Required 📍";
     },
 
     { enableHighAccuracy:true }
   );
+}
+
+// ===============================
+// SEND ACCIDENT TO FIREBASE
+// ===============================
+function triggerAccident(){
+
+  // GPS NOT READY
+  if(currentLat === 0 || currentLng === 0){
+
+    alert("Waiting For GPS Location 📍");
+    return;
+  }
+
+  const vehicle =
+  document.getElementById("vehicle");
+
+  // STOP MOVEMENT
+  vehicle.classList.remove("move");
+
+  // START CRASH EFFECT
+  vehicle.classList.add("crash");
+
+  // STOP SYSTEM
+  bluetoothConnected = false;
+
+  firebase.database()
+  .ref("accidents")
+  .push({
+
+    name:
+    document.getElementById("name").value,
+
+    vehicleType:
+    document.getElementById("vehicleType").value,
+
+    vehicleModel:
+    document.getElementById("vehicleModel").value,
+
+    vehicleNo:
+    document.getElementById("vehicleNo").value,
+
+    emergency:
+    document.getElementById("emergency").value,
+
+    phone:
+    "Driver Connected",
+
+    lat: parseFloat(currentLat),
+
+    lng: parseFloat(currentLng),
+
+    speed: 72,
+
+    impact: "HIGH IMPACT",
+
+    equipment:
+    "Ambulance, Medical Team, Hydraulic Cutter",
+
+    vehicleImage:
+    vehicleImageData,
+
+    timestamp: Date.now()
+  });
+
+  document.getElementById("status").innerText =
+  "🚨 ACCIDENT DETECTED";
+
+  showPopup("🚨 Accident Detected!");
+
+  alert("🚨 Accident Alert Sent!");
 }
 
 // ===============================
@@ -317,15 +439,16 @@ function clearDetails(){
   document.getElementById("emergency").value = "";
 
   document.getElementById("vehicleModel").innerHTML =
-    `<option value="">Select Vehicle Model</option>`;
+  `<option value="">Select Vehicle Model</option>`;
 
-  document.getElementById("vehicle").style.display = "none";
+  document.getElementById("vehicle").style.display =
+  "none";
 
   bluetoothConnected = false;
   tripStarted = false;
 
   document.getElementById("status").innerText =
-    "Status: Waiting...";
+  "Status: Waiting...";
 
   alert("🗑 Data Cleared!");
 }
@@ -336,6 +459,7 @@ function clearDetails(){
 function startTreeLoop(){
 
   if(treeLoopStarted) return;
+
   treeLoopStarted = true;
 
   const trees = ["🌳","🌴","🌳"];
@@ -344,13 +468,16 @@ function startTreeLoop(){
 
     if(!bluetoothConnected) return;
 
-    const tree = document.getElementById("roadTree");
+    const tree =
+    document.getElementById("roadTree");
 
     tree.innerText =
-      trees[Math.floor(Math.random()*trees.length)];
+    trees[Math.floor(Math.random()*trees.length)];
 
     tree.classList.remove("treeMove");
+
     void tree.offsetWidth;
+
     tree.classList.add("treeMove");
 
   },2500);
@@ -362,19 +489,24 @@ function startTreeLoop(){
 function startBirdLoop(){
 
   if(birdLoopStarted) return;
+
   birdLoopStarted = true;
 
   function flyBird(){
 
     if(!bluetoothConnected){
+
       setTimeout(flyBird,2000);
       return;
     }
 
-    const bird = document.getElementById("birdFlock");
+    const bird =
+    document.getElementById("birdFlock");
 
     bird.classList.remove("birdFly");
+
     void bird.offsetWidth;
+
     bird.classList.add("birdFly");
 
     setTimeout(flyBird,6000);
