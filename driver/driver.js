@@ -34,7 +34,7 @@ bike:[
 "Hero Splendor","Honda Shine","Suzuki Gixxer","Yamaha MT15","Bajaj Dominar",
 "Hero Xtreme","TVS Raider","Honda Unicorn","KTM RC 390","Royal Enfield Hunter",
 "Jawa 42","Benelli TNT","Honda Hornet","Bajaj Avenger","Hero Glamour",
-"TVS Ronin","Yamaha FZ\",\"Suzuki Hayabusa\",\"BMW G310R\",\"Kawasaki Ninja",
+"TVS Ronin","Suzuki Hayabusa","BMW G310R","Kawasaki Ninja",
 "Royal Enfield Meteor","Hero Passion","Bajaj Platina","Honda SP125","TVS Star City"
 ],
 
@@ -114,6 +114,7 @@ let bluetoothConnected = false;
 let vehicleImageData = "";
 let treeLoopStarted = false;
 let birdLoopStarted = false;
+let accidentSent = false;
 
 // ===============================
 // UPDATE VEHICLE
@@ -198,7 +199,6 @@ function showPopup(message){
     popup.classList.remove("show");
   },2200);
 }
-
 // ===============================
 // CONNECT ESP32
 // ===============================
@@ -215,6 +215,10 @@ async function connectESP32(){
 
   try{
 
+    // RESET FLAGS
+    accidentSent = false;
+
+    // REQUEST DEVICE
     const device =
     await navigator.bluetooth.requestDevice({
 
@@ -230,19 +234,23 @@ async function connectESP32(){
     document.getElementById("status").innerText =
     "Connecting To ESP32...";
 
+    // CONNECT GATT
     const server =
     await device.gatt.connect();
 
+    // GET SERVICE
     const service =
     await server.getPrimaryService(
       "12345678-1234-1234-1234-1234567890ab"
     );
 
+    // GET CHARACTERISTIC
     const characteristic =
     await service.getCharacteristic(
       "abcd1234-5678-1234-5678-abcdef123456"
     );
 
+    // START NOTIFICATION
     await characteristic.startNotifications();
 
     bluetoothConnected = true;
@@ -252,22 +260,61 @@ async function connectESP32(){
 
     showPopup("Vehicle Connected 🔵");
 
+    // AUTO GPS START
+    startTrip();
+
+    console.log("BLE Notifications Started");
+
+    // ===============================
+    // MPU6050 LIVE LISTENER
+    // ===============================
     characteristic.addEventListener(
       "characteristicvaluechanged",
 
-      (event)=>{
+      function(event){
 
         const value =
-        new TextDecoder().decode(
-          event.target.value
-        );
+        new TextDecoder()
+        .decode(event.target.value)
+        .trim();
 
-        console.log("BLE:", value);
+        console.log("BLE RECEIVED:", value);
 
-        if(value === "ACCIDENT"){
+        // ===============================
+        // AUTOMATIC ACCIDENT ALERT
+        // ===============================
+        if(
+          value.includes("ACCIDENT") &&
+          !accidentSent
+        ){
 
+          accidentSent = true;
+
+          console.log("🚨 ACCIDENT RECEIVED");
+
+          document.getElementById("status").innerText =
+          "🚨 Accident Detected Automatically";
+
+          showPopup("🚨 Accident Detected");
+
+          // SEND TO FIREBASE
           triggerAccident();
         }
+      }
+    );
+
+    // RECONNECT HANDLER
+    device.addEventListener(
+      "gattserverdisconnected",
+
+      ()=>{
+
+        bluetoothConnected = false;
+
+        document.getElementById("status").innerText =
+        "Vehicle Disconnected ❌";
+
+        showPopup("ESP32 Disconnected");
       }
     );
 
@@ -278,7 +325,7 @@ async function connectESP32(){
     bluetoothConnected = false;
 
     document.getElementById("status").innerText =
-    "Vehicle Not Connected";
+    "Connection Failed ❌";
 
     showPopup("Connection Failed ❌");
   }
@@ -350,7 +397,6 @@ function startTrip(){
 // ===============================
 function triggerAccident(){
 
-  // GPS NOT READY
   if(currentLat === 0 || currentLng === 0){
 
     alert("Waiting For GPS Location 📍");
@@ -360,13 +406,13 @@ function triggerAccident(){
   const vehicle =
   document.getElementById("vehicle");
 
-  // STOP MOVEMENT
+  // STOP VEHICLE MOVEMENT
   vehicle.classList.remove("move");
 
   // START CRASH EFFECT
   vehicle.classList.add("crash");
 
-  // STOP SYSTEM
+  // STOP CONNECTION
   bluetoothConnected = false;
 
   firebase.database()
@@ -411,9 +457,8 @@ function triggerAccident(){
   document.getElementById("status").innerText =
   "🚨 ACCIDENT DETECTED";
 
-  showPopup("🚨 Accident Detected!");
+  showPopup("🚨 Accident Alert Sent");
 
-  alert("🚨 Accident Alert Sent!");
 }
 
 // ===============================
@@ -446,6 +491,7 @@ function clearDetails(){
 
   bluetoothConnected = false;
   tripStarted = false;
+  accidentSent = false;
 
   document.getElementById("status").innerText =
   "Status: Waiting...";
